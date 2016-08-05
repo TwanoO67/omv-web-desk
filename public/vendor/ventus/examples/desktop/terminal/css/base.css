@@ -1,0 +1,38 @@
+.terminal-window {
+	background-color: #000 !important;
+}
+
+.terminusjs {
+	font-family: 'Ubuntu Mono', monospaced !important;
+	font-size: 15px;
+
+	width: 100%;
+
+	background: url(../img/logo.png) no-repeat -100 -100; /* Preload logo image*/
+	margin: 0;
+	padding: 0px 18px;
+	background-color: #000;
+
+	font-weight: 400;
+	color: #ddd;
+}
+
+.terminusjs .identity {
+	font-family: 'Arvo', serif;
+	font-style: italic;
+	padding: 0 0 10px 0;
+	margin: 0;
+	font-size: 11px;
+}
+
+.terminusjs .identity img {
+	display: inline-block;
+	height: 19px;
+}
+
+.terminusjs .identity h1 {
+	display: inline-block;
+
+	font-size: 23px;
+	padding-left: 12px;
+}
