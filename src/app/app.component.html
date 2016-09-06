@@ -2,6 +2,10 @@
   {{title}}
 </h1>
 
+<template ngFor let-item [ngForOf]="winlist" let-i="index" >
+  <div class="mywin {{item.id}}">{{item.text}}</div>
+</template>
+
   <!-- About App -->
   <div class="about-app">
       <h1>Desktop</h1>
@@ -28,4 +32,4 @@
     <iframe src="http://demo.codiad.com/" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
   </div>
 
-  <app-dock></app-dock>
+  <app-dock [icons]="winlist" (select)="dockSelect($event)"></app-dock>

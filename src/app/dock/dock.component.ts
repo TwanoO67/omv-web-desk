@@ -1,13 +1,14 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 
 @Component({
   moduleId: module.id,
   selector: 'app-dock',
+  inputs: ['icons'],
   templateUrl: 'dock.component.html',
   styleUrls: ['dock.component.css']
 })
 export class DockComponent implements OnInit {
-
+  @Output() select: EventEmitter<any> = new EventEmitter();
   @ViewChild("dockdiv") private dock: ElementRef;
   private arrayImg : HTMLCollection;
 
@@ -25,6 +26,10 @@ export class DockComponent implements OnInit {
 		document.onmousemove = (ev) => {
       this.onMovement(ev);
 		};
+  }
+
+  private emitSelect(id){
+    this.select.emit(id);
   }
 
   private onMovement(ev){
