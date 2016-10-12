@@ -1,5 +1,5 @@
 <div id="dock" #dockdiv >
   <template ngFor let-item [ngForOf]="icons" let-i="index" >
-    <img src="{{item.image}}" [width]="iconWidth/2" (click)="emitSelect(item.id)"/>
+    <img src="{{item.image}}" [width]="iconWidth/2" (click)="emitSelect(item.id)" title="{{item.selected}}"/>
   </template>
 </div>

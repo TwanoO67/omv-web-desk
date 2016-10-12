@@ -9,24 +9,33 @@ import { WindowService } from "./_services/window.service";
 })
 export class AppComponent {
 
-  private winlist = [{
+  private x_pos:number = 20;
+  private y_pos:number = 20;
+
+  private winlist: any[] = [{
     id: "about",
     image: "/assets/2.png",
     title: "test gen",
     text: `tetete`,
-    opened: false
+    opened: false,
+    selected: false,
+    ref: null
   },{
     id: "about2",
     image: "/assets/2.png",
     title: "test gen 2",
     text: `tetete 2`,
-    opened: false
+    opened: false,
+    selected: false,
+    ref: null
   },{
     id: "codiad",
     image: "/assets/2.png",
     title: "Codiad iframe",
     iframe: "http://demo.codiad.com",
-    opened: false
+    opened: false,
+    selected: false,
+    ref: null
   }];
 
   constructor(private _wm: WindowService ){
@@ -44,21 +53,37 @@ public dockSelect(id){
 
   //verify if not duplicated
   if(!win.opened){
-    this._wm.createWindowFromQuery('.mywin .'+win.id, {
+    let cur_win = this._wm.createWindowFromQuery('.mywin .'+win.id, {
       title: win.title,
       width: 250,
       height: 280,
-      x: 10,
-      y: 10,
+      x: this.x_pos,
+      y: this.y_pos,
       events: {
-        closed: function() {
-          console.log('eee')
-          this.destroy();
+        closed: ()=>{
+          console.log('closed sur '+win.id)
+          cur_win.destroy();
           win.opened = false;
+          win.selected = false;
+        },
+        focus: ()=>{
+          console.log('focus sur '+win.id);
+          this.winlist.forEach((autre)=>{
+            autre.selected = false;
+          });
+          win.selected = true;
         }
       }
     });
+    win.ref = cur_win;
     win.opened = true;
+    //on incremente la position
+    this.x_pos += 10;
+    this.y_pos += 10;
+  }
+  else{
+    console.log('on selectionne depuis le menu');
+    win.ref.focus();
   }
 
 
