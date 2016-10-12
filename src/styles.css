@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+*, :before, :after { box-sizing: border-box; }
+html {
+  font: 300 16px/1.618 "Helvetica Neue", Helvetica, sans-serif;
+  letter-spacing: 0.05em;
+  user-select: none;
+}

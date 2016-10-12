@@ -1,0 +1,23 @@
+#navbar{
+  width: 100%;
+  position: absolute;
+  top: 0;
+  margin: 0;
+  padding: 5px;
+
+  background: rgba(white, 0.5);
+  font-size: 0.9rem;
+  padding: 0 1rem 0 0;
+  line-height: 1.9;
+
+  .fa-apple {
+    margin: 0 0.7em;
+    padding: 0;
+    font-size: 1rem;
+  }
+  > * {
+    position: relative;
+    padding: 0 0.3em;
+    vertical-align: middle;
+  }
+}
