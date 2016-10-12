@@ -1,4 +1,6 @@
-export class Ng2OsPage {
+import { browser, element, by } from 'protractor';
+
+export class Ng2OsNewPage {
   navigateTo() {
     return browser.get('/');
   }

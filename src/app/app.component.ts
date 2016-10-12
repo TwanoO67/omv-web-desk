@@ -1,29 +1,31 @@
 import { Component } from '@angular/core';
-import { DockComponent } from "./dock";
-import { WindowService } from "./window.service";
+import { DockComponent } from "./_widgets/dock/dock.component";
+import { WindowService } from "./_services/window.service";
 
 @Component({
-  moduleId: module.id,
   selector: 'app-root',
-  directives: [DockComponent],
-  providers: [WindowService],
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
 
   private winlist = [{
     id: "about",
-    image: "2.png",
+    image: "/assets/2.png",
     title: "test gen",
     text: `tetete`,
     opened: false
   },{
     id: "about2",
-    image: "2.png",
+    image: "/assets/2.png",
     title: "test gen 2",
     text: `tetete 2`,
+    opened: false
+  },{
+    id: "codiad",
+    image: "/assets/2.png",
+    title: "Codiad iframe",
+    iframe: "http://demo.codiad.com",
     opened: false
   }];
 
@@ -46,8 +48,8 @@ public dockSelect(id){
       title: win.title,
       width: 250,
       height: 280,
-      x: 140,
-      y: 380,
+      x: 10,
+      y: 10,
       events: {
         closed: function() {
           console.log('eee')

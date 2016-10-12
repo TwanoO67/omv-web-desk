@@ -1,0 +1,111 @@
+* {
+  box-sizing:border-box;
+  transition:.25s ease-in-out;
+}
+
+body {
+  font-family:helvetica neue,helvetica,arial,sans-serif;
+  font-size:14px;
+  line-height:16px;
+  font-weight:200;
+}
+
+form {
+  position:relative;
+  width:300px;
+  margin:100px auto 0 auto;
+  padding:50px;
+  background: #e6e3e6;
+  background: -moz-linear-gradient(top, #e6e3e6 0%, #cdcccd 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e6e3e6), color-stop(100%,#cdcccd));
+  background: -webkit-linear-gradient(top, #e6e3e6 0%,#cdcccd 100%);
+  background: -o-linear-gradient(top, #e6e3e6 0%,#cdcccd 100%);
+  background: -ms-linear-gradient(top, #e6e3e6 0%,#cdcccd 100%);
+  background: linear-gradient(to bottom, #e6e3e6 0%,#cdcccd 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6e3e6', endColorstr='#cdcccd',GradientType=0 );
+  border-radius:5px;
+  > #search-bar {
+    display:block;
+    width:calc(100% - 100px);
+    height:36px;
+    padding:10px 10px 10px 30px;
+    position:absolute;
+    z-index:1;
+    border:none;
+    background:transparent;
+    font-family:helvetica neue,helvetica,arial,sans-serif;
+    font-size:14px;
+    line-height:14px;
+    font-weight:200;
+    opacity:0;
+    box-shadow:0 0 3px 10px #92bcea;
+    border-radius:5px;
+    &:valid {
+      opacity:1;
+      box-shadow:0 0 0px 0px #92bcea;
+    }
+    &:focus {
+      opacity:1;
+      outline:none;
+      box-shadow:0 0 0px 3px #92bcea;
+    }
+    &:focus + #search-bar-label, &:valid + #search-bar-label {
+      > #search-placeholder {
+        left:-33%;
+        > #placeholder-text {
+          opacity:0;
+        }
+      }
+    }
+    &:focus ~ #close-btn {
+      z-index:3;
+      i {
+        font-size:14px;
+        cursor:pointer;
+      }
+    }
+    &:valid ~ #close-btn {
+      z-index:0;
+      i {
+        font-size:0px;
+        cursor:pointer;
+      }
+    }
+  }
+  > #search-bar-label {
+    display:block;
+    position:relative;
+    padding:10px;
+    width:100%;
+    background:white;
+    border-radius:5px;
+    box-shadow:0 1px 0 rgba(0,0,0,.2);
+    > #search-placeholder {
+      display:block;
+      position:relative;
+      left:0%;
+      text-align:center;
+      width:100%;
+      color:#585858;
+      > #placeholder-text {
+        opacity:1;
+        color:#b2b2b2;
+      }
+    }
+  }
+  #close-btn {
+    width:36px;
+    height:36px;
+    position:absolute;
+    top:50px;
+    right:50px;
+    z-index:0;
+    > i {
+      width:36px;
+      line-height:36px;
+      font-size:0px;
+      text-align:center;
+      color:#7d7d7d;
+    }
+  }
+}
