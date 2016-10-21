@@ -1,51 +1,57 @@
-NG2OS_CONFIG = {};
-NG2OS_CONFIG['windows'] = [{
-  "id": "about",
-  "image": "/assets/2.png",
-  "title": "test gen",
-  "text": "tetete",
-  "opened": false,
-  "selected": false,
-  "ref": null
-},{
-  "id": "about2",
-  "image": "/assets/2.png",
-  "title": "test gen 2",
-  "text": "tetete 2",
-  "opened": false,
-  "selected": false,
-  "ref": null
-},{
-  "id": "google",
-  "image": "/assets/2.png",
-  "title": "Google",
-  "iframe": "http://www.google.fr",
-  "opened": false,
-  "selected": false,
-  "ref": null
-},
-{
-  "id": "nas",
-  "image": "/assets/2.png",
-  "iframe": "http://nas.weberantoine.fr:82",
-  "title": "JEEDOM",
-  "opened": false,
-  "selected": false,
-  "ref": null
-},{
-  "id": "about2",
-  "image": "/assets/2.png",
-  "title": "test gen 2",
-  "text": "tetete 2",
-  "opened": false,
-  "selected": false,
-  "ref": null
-},{
-  "id": "codiad2",
-  "image": "/assets/2.png",
-  "title": "Codiad iframe",
-  "iframe": "http://demo.codiad.com",
-  "opened": false,
-  "selected": false,
-  "ref": null
-}];
+NG2OS_CONFIG = {
+  'iconWidth': 100,
+  'windows' : [{
+	  "id": "about",
+	  "image": "/assets/flatjoy-circle-deviantart/Apple.png",
+	  "title": "Présentation",
+	  "text": "Bienvenue, sur l'interface de gestion de Bureau virtuel. N'oubliez pas de changer les url d'iframe et de configurer vos propres icones",
+	  "opened": false,
+	  "selected": false,
+	  "ref": null
+	},
+	{
+	  "id": "jeedom",
+	  "image": "/assets/flatjoy-circle-deviantart/Camcorder.png",
+	  "iframe": "http://your-cam-recorder",
+	  "title": "JeeDom",
+	  "opened": false,
+	  "selected": false,
+	  "ref": null
+	},
+	{
+	  "id": "elfinder",
+	  "image": "/assets/flatjoy-circle-deviantart/Drawers.png",
+	  "iframe": "http://your-finder",
+	  "title": "Finder",
+	  "opened": false,
+	  "selected": false,
+	  "ref": null
+	},
+	{
+	  "id": "omv",
+	  "image": "/assets/flatjoy-circle-deviantart/Chip.png",
+	  "iframe": "http://your-omv-ip/",
+	  "title": "OpenMediaVault",
+	  "opened": false,
+	  "selected": false,
+	  "ref": null
+	},
+	{
+	  "id": "network",
+	  "image": "/assets/flatjoy-circle-deviantart/Devices.png",
+	  "iframe": "http://your-router",
+	  "title": "Réseau",
+	  "opened": false,
+	  "selected": false,
+	  "ref": null
+	},
+	{
+	  "id": "sickrage",
+	  "image": "/assets/flatjoy-circle-deviantart/Cone.png",
+	  "iframe": "http://your-sickrage-install/",
+	  "title": "SickRage",
+	  "opened": false,
+	  "selected": false,
+	  "ref": null
+	}]
+}

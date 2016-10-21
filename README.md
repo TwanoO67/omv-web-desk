@@ -1,4 +1,14 @@
-# Ng2OsNew
+# NG2OS
+
+
+Bureau virtuel (basé sur Angular2 et Ventus )
+
+![Preview](https://github.com/TwanoO67/ng2-os/raw/master/src/assets/screenshot.png)
+
+Configurez vos propres icones en modifiant le fichier "ng2os_config.js"
+
+
+
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.17.
 
@@ -19,7 +29,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/). 
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 Before running the tests make sure you are serving the app via `ng serve`.
 
 ## Deploying to Github Pages
