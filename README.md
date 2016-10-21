@@ -8,6 +8,13 @@ Bureau virtuel (basé sur Angular2 et Ventus )
 Configurez vos propres icones en modifiant le fichier "ng2os_config.js"
 
 
+## Securisation 
+Pour securiser cet écran derriere une page de login, vous pouvez utiliser le contenu du dossier "omv".
+Celui-ci remplace le fonctionnement de index.html, avec un index.php dans lequel il vous faudra indiquer l'adresse de votre serveur openmediavault, pour vous servir de son login.
+
+
+
+
 
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.17.
