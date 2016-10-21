@@ -1,21 +1,26 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { WindowService } from "../../_services/window.service";
 
 @Component({
   selector: 'app-dock',
-  inputs: ['icons'],
+  inputs: ['winlist'],
   templateUrl: 'dock.component.html',
   styleUrls: ['dock.component.css']
 })
 export class DockComponent implements OnInit {
-  @Output() select: EventEmitter<any> = new EventEmitter();
   @ViewChild("dockdiv") private dock: ElementRef;
   private arrayImg : HTMLCollection;
+  private winlist: any[];
 
   private iconWidth : number = 64;
   private minimalScale: number = 0.5;
   private minimalDistance: number = 300;
 
-  constructor() {
+  //postion de depart d'apparition des fenetres
+  private x_pos:number = 20;
+  private y_pos:number = 20;
+
+  constructor(private _wm: WindowService ){
 
   }
 
@@ -25,10 +30,6 @@ export class DockComponent implements OnInit {
 		document.onmousemove = (ev) => {
       this.onMovement(ev);
 		};
-  }
-
-  private emitSelect(id){
-    this.select.emit(id);
   }
 
   private onMovement(ev){
@@ -48,6 +49,54 @@ export class DockComponent implements OnInit {
         scale=this.minimalScale
       }
       elem.style.width = this.iconWidth*scale+'px';
+    }
+  }
+
+  private dockSelect(id){
+    //get win param by id
+    let win = this.winlist.filter((win)=>{
+      return (win.id==id);
+    })[0];
+
+    //verify if not duplicated
+    if(!win.opened){
+      win.opened = true;
+
+      //on laisse passé un timeout, pour avoir le temps de construire le dom
+      setTimeout((scope)=>{
+        let cur_win = scope._wm.createWindowFromQuery('#'+win.id, {
+          title: win.title,
+          width: 250,
+          height: 280,
+          x: scope.x_pos,
+          y: scope.y_pos,
+          events: {
+            closed: ()=>{
+              console.log('closed sur '+win.id)
+              cur_win.destroy();
+              win.opened = false;
+              win.selected = false;
+            },
+            focus: ()=>{
+              console.log('focus sur '+win.id);
+              scope.winlist.forEach((autre)=>{
+                autre.selected = false;
+              });
+              win.selected = true;
+            }
+          }
+        });
+        win.ref = cur_win;
+      },0,this);
+
+
+      //on incremente la position
+      this.x_pos += 10;
+      this.y_pos += 10;
+    }
+    else{
+      console.log('on selectionne depuis le menu');
+      win.ref.focus();
     }
   }
 

@@ -3,15 +3,19 @@
 <app-search></app-search>
 
 <template ngFor let-item [ngForOf]="winlist" let-i="index" >
-  <template [ngIf]="item.iframe">
-    <div class="{{item.id}} iframe-responsive-wrapper" (resize)="winresize()">
-      <img (resize)="winresize()" class="iframe-ratio" src="/assets/img/trans.gif" />
-      <iframe [src]="item.iframe | safe" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-    </div>
-  </template>
-  <template [ngIf]="!item.iframe">
-    <div class="mywin {{item.id}}">{{item.text}}</div>
+  <template [ngIf]="item.opened">
+    <template [ngIf]="item.iframe">
+
+      <div [id]="item.id" class="intrinsic-container" (resize)="winresize()">
+        <iframe [src]="item.iframe | safe" allowfullscreen></iframe>
+      </div>
+
+      
+    </template>
+    <template [ngIf]="!item.iframe">
+      <div [id]="item.id" class="mywin {{item.id}}">{{item.text}}</div>
+    </template>
   </template>
 </template>
 
-<app-dock [icons]="winlist" (select)="dockSelect($event)"></app-dock>
+<app-dock [winlist]="winlist" (select)="dockSelect($event)"></app-dock>
