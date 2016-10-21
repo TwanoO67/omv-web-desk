@@ -98,6 +98,7 @@ export class DockComponent implements OnInit {
       console.log('on selectionne depuis le menu');
       win.ref.focus();
     }
+    return false;
   }
 
 }
