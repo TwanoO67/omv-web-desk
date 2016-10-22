@@ -1,20 +1,17 @@
 <div id="navbar">
   <i class="fa fa-apple"></i>
   <strong>NG2-OS</strong>
-  <span [class.selected]="sele" style="padding: 6px;" >
-    <div (click)="selectSpan()" style="display:inline" >File</div>
-    <ul>
-      <li>New Window</li>
-      <li>New File</li>
-      <li>Save As</li>
-      <li>Save All</li>
-      <li>Close</li>
-      <li>Close All</li>
-    </ul>
-  </span>
-  <span>Edit</span>
-  <span>View</span>
-  <span>Window</span>
-  <span>Help</span>
+
+  <template ngFor let-item [ngForOf]="navmenu" let-i="index" >
+    <span [class.selected]="item.selected" style="padding: 6px;" >
+      <div (click)="clickOnTitle(item)" style="display:inline" (hover)="hoverTitle(item)" >{{item.label}}</div>
+      <ul>
+        <template ngFor let-subitem [ngForOf]="item.submenu" let-i="subindex" >
+          <li>{{subitem.label}}</li>
+        </template>
+      </ul>
+    </span>
+  </template>
+
   <div style="float:right">{{heure}}</div>
 </div>

@@ -1,5 +1,35 @@
 NG2OS_CONFIG = {
   'iconWidth': 100,
+  'topmenu' : [
+    {
+      "label": "File",
+      "selected": false,
+      "submenu": [
+        {"label": "New Window"},
+        {"label": "New File"},
+        {"label": "Save As"},
+        {"label": "Save All"},
+        {"label": "Close"},
+        {"label": "Close All"}
+      ]
+    },
+    {
+      "label": "Edit",
+      "selected": false,
+      "submenu": [
+        {"label": "New Window"},
+        {"label": "New File"}
+      ]
+    },
+    {
+      "label": "View",
+      "selected": false,
+      "submenu": [
+        {"label": "Close"},
+        {"label": "Close All"}
+      ]
+    }
+  ],
   'windows' : [{
 	  "id": "about",
 	  "image": "/assets/flatjoy-circle-deviantart/Apple.png",
