@@ -21,3 +21,40 @@
     vertical-align: middle;
   }
 }
+
+
+
+div{
+  cursor: default;
+}
+
+div .selected{
+  background-color: #1964EF;
+  color: white;
+}
+
+ul{
+  display: none;
+}
+
+.selected ul{
+  display: block;
+  position: absolute;
+  background: rgba(white, 0.5);
+  list-style: none;
+  top: 14px;
+  left: 0;
+  padding-left: 0;
+}
+
+li{
+  white-space: nowrap;
+  padding-left: 5px;
+  padding-right: 10px;
+  color: black;
+}
+
+li:hover{
+  background-color: #1964EF;
+  color: white;
+}

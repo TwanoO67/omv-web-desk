@@ -1,7 +1,17 @@
 <div id="navbar">
   <i class="fa fa-apple"></i>
   <strong>NG2-OS</strong>
-  <span>File</span>
+  <span [class.selected]="sele" style="padding: 6px;" >
+    <div (click)="selectSpan()" style="display:inline" >File</div>
+    <ul>
+      <li>New Window</li>
+      <li>New File</li>
+      <li>Save As</li>
+      <li>Save All</li>
+      <li>Close</li>
+      <li>Close All</li>
+    </ul>
+  </span>
   <span>Edit</span>
   <span>View</span>
   <span>Window</span>

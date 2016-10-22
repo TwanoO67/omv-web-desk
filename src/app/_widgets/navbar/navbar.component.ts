@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
   private heure: string = "";
+  private sele:boolean = false;
 
   constructor() { }
 
@@ -18,6 +19,10 @@ export class NavbarComponent implements OnInit {
   public updateDate(scope){
     let d = new Date();
     scope.heure = d.toLocaleDateString()+" "+d.toTimeString().split(' ')[0];
+  }
+
+  public selectSpan(){
+    this.sele = !this.sele;
   }
 
 }
