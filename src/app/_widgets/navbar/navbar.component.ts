@@ -26,10 +26,20 @@ export class NavbarComponent implements OnInit {
     scope.heure = d.toLocaleDateString()+" "+d.toTimeString().split(' ')[0];
   }
 
-  public clickOnTitle(item){
+  public clickOnMain(){
+    console.log('click on main navbar')
+    this.unselectAll();
+  }
+
+  public clickOnTitle(item,event){
+    console.log('click on '+item.label);
     this.unselectAll();
     item.selected = true;
     this.navbar_selected = true;
+    if(event){
+      event.stopPropagation();
+      return false;
+    }
   }
 
   private unselectAll(){
@@ -42,7 +52,7 @@ export class NavbarComponent implements OnInit {
     console.log('hover');
     //si une autre titre est déja selectionné, passé sur un titre vaut comme un clic
     if(this.navbar_selected){
-      this.clickOnTitle(item);
+      this.clickOnTitle(item,null);
     }
   }
 
