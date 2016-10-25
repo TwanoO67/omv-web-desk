@@ -36,7 +36,9 @@
 					resizable: false,
 					height: $(window).height()
 				});
-				
+
+				// fit to window.height on window.resize
+				var resizeTimer = null;
 				$(window).resize(function() {
 					resizeTimer && clearTimeout(resizeTimer);
 					if (! $('#elfinder').hasClass('elfinder-fullscreen')) {
@@ -48,7 +50,7 @@
 						}, 200);
 					}
 				});
-				
+
 			});
 		</script>
 	</head>
