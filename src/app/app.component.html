@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<app-navbar [navitems]="navitems" ></app-navbar>
 
 <app-search></app-search>
 
@@ -10,7 +10,7 @@
         <iframe [src]="item.iframe | safe" allowfullscreen></iframe>
       </div>
 
-      
+
     </template>
     <template [ngIf]="!item.iframe">
       <div [id]="item.id" class="mywin {{item.id}}">{{item.text}}</div>
@@ -18,4 +18,4 @@
   </template>
 </template>
 
-<app-dock [winlist]="winlist" (select)="dockSelect($event)"></app-dock>
+<app-dock [winlist]="winlist" [iconWidth]="iconWidth" (select)="dockSelect($event)"></app-dock>

@@ -1,18 +1,19 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-declare var NG2OS_CONFIG;
+import { NavbarItem } from "../../_models/navbar-item";
 
 @Component({
   host: {
     '(document:click)': 'onOutsideClick($event)',
   },
   selector: 'app-navbar',
+  inputs: ["navitems"],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
   private heure: string = "";
   private navbar_selected: boolean = false;
-  private navmenu: any = NG2OS_CONFIG['topmenu'];
+  private navitems: Array<NavbarItem> = [];
 
   constructor(private _eref: ElementRef) { }
 
@@ -32,7 +33,14 @@ export class NavbarComponent implements OnInit {
   }
 
   public clickOnTitle(item,event){
-    console.log('click on '+item.label);
+    this.handleSelection(item,event);
+    if(item.action){
+      item.action();
+    }
+  }
+
+  //gére le fait de selectionné, un lien du menu
+  public handleSelection(item,event){
     this.unselectAll();
     item.selected = true;
     this.navbar_selected = true;
@@ -42,8 +50,21 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  public clickOnSubTitle(subitem,event){
+    this.handleSelection(subitem,event);
+    if(subitem.action){
+      subitem.action();
+    }
+    else if(subitem.link){
+      document.location.href = subitem.link;
+    }
+    else if(subitem.routerlink){
+      //need router for that
+    }
+  }
+
   private unselectAll(){
-    this.navmenu.forEach((item)=>{
+    this.navitems.forEach((item)=>{
       item.selected = false;
     });
   }

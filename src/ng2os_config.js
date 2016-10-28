@@ -1,9 +1,15 @@
 NG2OS_CONFIG = {
   'iconWidth': 100,
-  'topmenu' : [
+  'navbar' : [
+    {
+      "label": "User",
+      "submenu":[{
+        "label": "Disconnect",
+        "link":"/login/logout.php"
+      }]
+    },
     {
       "label": "File",
-      "selected": false,
       "submenu": [
         {"label": "New Window"},
         {"label": "New File"},
@@ -15,7 +21,6 @@ NG2OS_CONFIG = {
     },
     {
       "label": "Edit",
-      "selected": false,
       "submenu": [
         {"label": "New Window"},
         {"label": "New File"}
@@ -23,14 +28,13 @@ NG2OS_CONFIG = {
     },
     {
       "label": "View",
-      "selected": false,
       "submenu": [
         {"label": "Close"},
         {"label": "Close All"}
       ]
     }
   ],
-  'windows' : [{
+  'dock' : [{
 	  "id": "about",
 	  "image": "/assets/flatjoy-circle-deviantart/Apple.png",
 	  "title": "Présentation",
@@ -43,19 +47,13 @@ NG2OS_CONFIG = {
 	  "id": "jeedom",
 	  "image": "/assets/flatjoy-circle-deviantart/Camcorder.png",
 	  "iframe": "http://your-cam-recorder",
-	  "title": "JeeDom",
-	  "opened": false,
-	  "selected": false,
-	  "ref": null
+	  "title": "JeeDom"
 	},
 	{
 	  "id": "elfinder",
 	  "image": "/assets/flatjoy-circle-deviantart/Drawers.png",
 	  "iframe": "http://your-finder",
-	  "title": "Finder",
-	  "opened": false,
-	  "selected": false,
-	  "ref": null
+	  "title": "Finder"
 	},
 	{
 	  "id": "omv",
@@ -70,18 +68,12 @@ NG2OS_CONFIG = {
 	  "id": "network",
 	  "image": "/assets/flatjoy-circle-deviantart/Devices.png",
 	  "iframe": "http://your-router",
-	  "title": "Réseau",
-	  "opened": false,
-	  "selected": false,
-	  "ref": null
+	  "title": "Réseau"
 	},
 	{
 	  "id": "sickrage",
 	  "image": "/assets/flatjoy-circle-deviantart/Cone.png",
 	  "iframe": "http://your-sickrage-install/",
-	  "title": "SickRage",
-	  "opened": false,
-	  "selected": false,
-	  "ref": null
+	  "title": "SickRage"
 	}]
 }

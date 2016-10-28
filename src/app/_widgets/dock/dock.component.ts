@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { WindowService } from "../../_services/window.service";
-declare var NG2OS_CONFIG;
 
 @Component({
   selector: 'app-dock',
-  inputs: ['winlist'],
+  inputs: ['winlist','iconWidth'],
   templateUrl: 'dock.component.html',
   styleUrls: ['dock.component.css']
 })
@@ -13,7 +12,7 @@ export class DockComponent implements OnInit {
   private arrayImg : HTMLCollection;
   private winlist: any[];
 
-  private iconWidth : number = NG2OS_CONFIG['iconWidth'];
+  private iconWidth : number = 30;
   private minimalScale: number = 0.5;
   private minimalDistance: number = 300;
 

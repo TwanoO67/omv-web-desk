@@ -2,12 +2,12 @@
   <i class="fa fa-apple"></i>
   <strong>NG2-OS</strong>
 
-  <template ngFor let-item [ngForOf]="navmenu" let-i="index" >
+  <template ngFor let-item [ngForOf]="navitems" let-i="index" >
     <span [class.selected]="item.selected" style="padding: 6px;" >
       <div (click)="clickOnTitle(item,$event)" style="display:inline" (hover)="hoverTitle(item)" >{{item.label}}</div>
       <ul>
         <template ngFor let-subitem [ngForOf]="item.submenu" let-i="subindex" >
-          <li (click)="clickOnTitle(subitem,$event)">{{subitem.label}}</li>
+          <li (click)="clickOnSubTitle(subitem,$event)">{{subitem.label}}</li>
         </template>
       </ul>
     </span>
