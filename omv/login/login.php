@@ -114,6 +114,26 @@
 			  margin:10px 0;
 			  font-size:0.95em;
 			}
+			.spinner {
+			    background: url(../assets/img/spinnerSmall.gif) no-repeat;
+			    background-size: 35px 35px;
+			    width: 35px;
+			    height: 35px;
+			    position: absolute;
+			    left: 50%;
+			    top: 75%;
+			    margin-left: -18px;
+			    margin-top: -19px;
+			    visibility: hidden;
+			    -webkit-animation: initLoading 8s 2s linear forwards;
+			    -moz-animation: initLoading 8s 2s linear forwards;
+			}
+			.visible{
+				visibility: visible;
+			}
+			.hide{
+				visibility: hidden;
+			}
 			@-webkit-keyframes shake{
 				0% { left:0; }
 				20% { left:10px; }
@@ -148,11 +168,12 @@
 		<div class="login" id="loginbox">
 			<div class="avatar">
 			</div>
+			<div id="load" class="spinner"></div>
 			<form id="login" class="login-form" onsubmit="login()">
 				<input type="text" placeholder="Utilisateur" class="pass" id="inputuser" onkeypress="return runScript(event)" /><span class="arrow" id="arrow">&rarr;</span>
 				<input type="password" placeholder="Mot de passe" class="pass" id="inputpass" onkeypress="return runScript(event)" /><span id="arrow_pass" class="arrow" id="arrow">&rarr;</span>
+				
 			</form>
-
 		</div>
 	</div>
 <div class="wrap">Copyright <a href="http://www.weberantoine.fr">Antoine Weber</a><br /><span class="info">Bienvenue sur l'interface du bureau virtuel</span></div>
@@ -161,10 +182,13 @@
 <script>
 	var input_user = document.getElementById("inputuser");	
 	var input_pass = document.getElementById("inputpass");
+	var login_box = document.getElementById("loginbox");	
+	var loader = document.getElementById("load");
+	var arrow = document.getElementById("arrow_pass");
 	
 	function runScript(e) {
 		if(e.srcElement === input_pass){
-			document.getElementById("arrow_pass").classList.add('opac');
+			arrow.classList.add('opac');
 		}
 	    if(e.keyCode == 13){
 	        e.preventDefault();
@@ -182,6 +206,10 @@
 	}
 	
 	function login(){
+		input_user.classList.add("hide");
+		input_pass.classList.add("hide");
+		arrow.classList.remove('opac');
+		loader.classList.add("visible");
 		post("/login/auth.php",{
 			username: input_user.value,
 			password: input_pass.value
@@ -192,16 +220,18 @@
 				document.location = "/";
 			}
 			else{
+				input_user.classList.remove("hide");
+				input_pass.classList.remove("hide");
+				loader.classList.remove("visible");
 				shake();
 			}
 		});
 	}
 	
 	function shake(){
-		var elem = document.getElementById("loginbox");	
-		elem.classList.add("init-shake");
+		login_box.classList.add("init-shake");
 		setTimeout(function(){
-			elem.classList.remove("init-shake");
+			login_box.classList.remove("init-shake");
 		}, 1000);
 	}
 	
