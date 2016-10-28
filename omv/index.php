@@ -4,7 +4,7 @@
 		require("./index.html");
 	}
 	else{
-		require("./login/login.html");
+		require("./login/login.php");
 	}
 	exit;
 ?>

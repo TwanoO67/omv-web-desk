@@ -10,9 +10,9 @@ Configurez vos propres icones en modifiant le fichier "ng2os_config.js"
 
 ## Securisation 
 Pour securiser cet écran derriere une page de login, vous pouvez utiliser le contenu du dossier "omv".
-Celui-ci limite l'accés au index.html, avec un index.php dans lequel votre session openmediavault, pour vous servir de son login.
+Celui-ci limite l'accès au index.html, avec un index.php dans lequel votre session OpenMediaVault, pour vous servir de son login.
 
-dans /login/auth.php renseigner l'adresse de votre serveur OMV API
+dans /login/config.php renseigner l'adresse de votre serveur OMV API
 
 dans votre conf nginx rajouter:
 

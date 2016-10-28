@@ -1,9 +1,12 @@
+<?php
+	$CONF = require('./login/config.php');	
+?>
 <html>
 	<body>
 		<style>
 			body{
 				font-family: "Helvetica Neue", sans-serif;
-				background:url(http://i.imgur.com/W8IdvVk.jpg);
+				background:url("<?php echo $CONF["login_background"]; ?>");
 				background-size:2000px 1000px;
 			  background-position:top center;
 			}
@@ -53,9 +56,9 @@
 				border:#fff 3px solid;
 				box-shadow:rgba(0,0,0,0.4) 0px 2px 4px, inset rgba(0,0,0,0.4) 0px 3px 2px;
 				overflow:hidden;
-				background-image:-webkit-linear-gradient(top left, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 50%), url("http://www.mattboldt.com/assets/img/avatar.jpg");
-			  background-image:-moz-linear-gradient(top left, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 50%), url("http://www.mattboldt.com/assets/img/avatar.jpg");
-			  background-image:linear-gradient(top left, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 50%), url("http://www.mattboldt.com/assets/img/avatar.jpg");
+				background-image:-webkit-linear-gradient(top left, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 50%), url("<?php echo $CONF["login_avatar"]; ?>");
+			  background-image:-moz-linear-gradient(top left, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 50%), url("<?php echo $CONF["login_avatar"]; ?>");
+			  background-image:linear-gradient(top left, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 50%), url("<?php echo $CONF["login_avatar"]; ?>");
 				background-size: auto, 100%;
 			}
 			.user{

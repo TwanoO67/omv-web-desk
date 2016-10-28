@@ -1,12 +1,11 @@
 <?php
 session_start();
 //conf
-$endpoint_url = "http://YOUR-OPENMEDIAVAULT-DOMAIN/rpc.php";
-
+$CONF = require('./config.php');
 	
 //si on cherche a se connecter
 if( isset( $_POST['username'] ) && isset($_POST['password'] ) ){
-	$ch = curl_init( $endpoint_url );
+	$ch = curl_init( $CONF["omv_api_rpc"] );
 	# Setup request to send json via POST.
 	$payload = json_encode( array( 
 	"service"=> "Session", 
