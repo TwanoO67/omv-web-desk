@@ -36,21 +36,24 @@
 					resizable: false,
 					height: $(window).height()
 				});
-
+				
 				// fit to window.height on window.resize
 				var resizeTimer = null;
 				$(window).resize(function() {
-					resizeTimer && clearTimeout(resizeTimer);
+					// si on a deja fait un appel durant les 200ms, on stop l'ancien
+					if(resizeTimer) 
+						clearTimeout(resizeTimer);
 					if (! $('#elfinder').hasClass('elfinder-fullscreen')) {
 						resizeTimer = setTimeout(function() {
 							var h = parseInt($(window).height())/* - 20*/;
 							if (h != parseInt($('#elfinder').height())) {
-								elfinderInstance.resize('100%', h);
+								elfinderInstance.css('height',(h)+"px");
+								elfinderInstance.trigger('resize');
 							}
 						}, 200);
 					}
 				});
-
+				
 			});
 		</script>
 	</head>
