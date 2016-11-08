@@ -4,9 +4,21 @@ error_reporting(0); // Set E_ALL for debuging
 
 //AW - verif si session omv
 session_start();
-if( !isset($_SESSION['authenticated']) || !$_SESSION['authenticated'] ){
+if(
+	!isset($_SESSION['authenticated'])
+	|| !$_SESSION['authenticated']
+	|| !$_SESSION['username']
+	|| !$_SESSION['username'] === ""
+){
 	exit;
 }
+
+//Verif si le username est clean pour déduire un nom de dossier
+$dossier = "../files/anonymous/";
+if( strpos($_SESSION['username'],'.') === false && strpos($_SESSION['username'],'/') === false){
+	$dossier = "../files/".$_SESSION['username']."/";
+}
+
 
 // load composer autoload before load elFinder autoload If you need composer
 //require './vendor/autoload.php';
@@ -72,8 +84,8 @@ $opts = array(
 	'roots' => array(
 		array(
 			'driver'        => 'LocalFileSystem',           // driver for accessing file system (REQUIRED)
-			'path'          => '../files/',                 // path to files (REQUIRED)
-			'URL'           => dirname($_SERVER['PHP_SELF']) . '/../files/', // URL to files (REQUIRED)
+			'path'          => $dossier,                 // path to files (REQUIRED)
+			'URL'           => dirname($_SERVER['PHP_SELF']) . '/'.$dossier, // URL to files (REQUIRED)
 			'uploadDeny'    => array('all'),                // All Mimetypes not allowed to upload
 			'uploadAllow'   => array('image', 'text/plain'),// Mimetype `image` and `text/plain` allowed to upload
 			'uploadOrder'   => array('deny', 'allow'),      // allowed Mimetype `image` and `text/plain` only
@@ -85,4 +97,3 @@ $opts = array(
 // run elFinder
 $connector = new elFinderConnector(new elFinder($opts));
 $connector->run();
-

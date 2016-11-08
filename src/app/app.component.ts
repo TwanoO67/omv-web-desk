@@ -15,19 +15,34 @@ export class AppComponent {
   private navitems: NavbarItem[] = [];
   private iconWidth: number = 30;
 
-  constructor(private _wm: WindowService ){
+  //get conf
+  private dock_conf: any = null;
 
+  constructor(private _wm: WindowService ){
+    //recupere la conf pour le user
+    if( NG2OS_CONFIG['username'] ){
+      let user = NG2OS_CONFIG['username'];
+      if(NG2OS_CONFIG['dock'][user])
+        this.dock_conf = NG2OS_CONFIG['dock'][user];
+    }
+    //sinon conf par defaut
+    if( !this.dock_conf ){
+      this.dock_conf = NG2OS_CONFIG['dock']['default'];
+    }
+
+    this.dock_conf.forEach((win)=>{
+      this.winlist.push(new DockItem(win));
+    });
+
+    NG2OS_CONFIG['navbar'].forEach((win)=>{
+      this.navitems.push(new NavbarItem(win));
+    });
+
+    this.iconWidth = NG2OS_CONFIG['iconWidth'];
   }
 
  public ngOnInit(){
-   //récupération de la conf
-   NG2OS_CONFIG['dock'].forEach((win)=>{
-     this.winlist.push(new DockItem(win));
-   });
-   NG2OS_CONFIG['navbar'].forEach((win)=>{
-     this.navitems.push(new NavbarItem(win));
-   });
-   this.iconWidth = NG2OS_CONFIG['iconWidth'];
+   
 
  }
 
