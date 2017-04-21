@@ -1,0 +1,7 @@
+# http://wiki.openmediavault.org/index.php?title=Coding_Guidelines
+
+# http://forum.openmediavault.org/index.php/Thread/5600-DIY-Plugin-Development/
+
+service openmediavault-engined restart
+
+source /usr/share/openmediavault/scripts/helper-functions && omv_purge_internal_cache
