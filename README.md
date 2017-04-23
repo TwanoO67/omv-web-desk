@@ -3,7 +3,7 @@
 
 Bureau virtuel (basé sur Angular2 et Ventus )
 
-![Preview](https://github.com/TwanoO67/ng2-os/raw/master/src/assets/screenshot.png)
+![Preview](https://github.com/TwanoO67/ng2-os/raw/master/src/assets/demo.gif)
 
 Configurez vos propres icones en modifiant le fichier "ng2os_config.js"
 

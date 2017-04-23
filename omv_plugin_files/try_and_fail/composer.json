@@ -1,0 +1,20 @@
+{
+    "name": "twanoo67/ng2os",
+    "description": "Bureau virtuel pour OMV",
+    "type": "project",
+    "require": {
+        "docker-php/docker-php": "^1.24"
+    },
+    "autoload": {
+        "psr-4": {
+            "OMVWebDesk\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Antoine WEBER",
+            "email": "weber.antoine.pro@gmail.com"
+        }
+    ]
+}
