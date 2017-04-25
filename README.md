@@ -1,5 +1,21 @@
-# NG2OS
+# OMV Web Desk
 
+![Preview](https://github.com/TwanoO67/ng2-os/raw/master/src/assets/demo.gif)
+
+# English description
+
+OMV Web Desk, is a project to add a public "front" part to an OpenMediaVault server.
+It will consist of a web app using OMV's info, to show some easy functionnality to your users.
+It will be based on user and folder sharing defined in the OMV administration UI.
+It looks like a Desktop UI, where your user would have some "App" providing easy access, like:
+* File Explorer (done)
+* Iframes to your plugins web-view (done)
+* Photo Gallery (work in progress)
+* Music player (todo)
+
+Technically it's based on OMV (for the php part), Angular (as TS framework), Ventus (as Desktop manager)
+
+# Français
 
 Bureau virtuel pour OMV.
 
@@ -12,11 +28,7 @@ Cette interface là sera pour mettre à disposition de vos invités.
 Elle permettra de mettre rapidement les fichiers du nas à disposition.
 
 
-(Ce projet est basé sur Angular2 et Ventus )
-
-![Preview](https://github.com/TwanoO67/ng2-os/raw/master/src/assets/demo.gif)
-
-
+(Ce projet est basé sur OMV, Angular et Ventus )
 
 ## Installation
 
