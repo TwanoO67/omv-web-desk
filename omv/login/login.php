@@ -176,7 +176,10 @@
 			</form>
 		</div>
 	</div>
-<div class="wrap">Copyright <a href="http://www.weberantoine.fr">Antoine Weber</a><br /><span class="info">Bienvenue sur l'interface du bureau virtuel</span></div>
+<div class="wrap">
+  Project OpenSource on <a href="https://github.com/TwanoO67/omv-web-desk">GitHub</a><br />
+  <span class="info">Welcome to OMV WebDesk</span>
+ </div>
 
 
 <script>
