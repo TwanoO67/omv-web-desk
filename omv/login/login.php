@@ -7,7 +7,6 @@
 			body{
 				font-family: "Helvetica Neue", sans-serif;
 				background:url("<?php echo $CONF["login_background"]; ?>");
-				background-size:2000px 1000px;
 			  background-position:top center;
 			}
 			a{

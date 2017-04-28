@@ -2,16 +2,16 @@
   <i class="fa fa-apple"></i>
   <strong>OMV WebDesk</strong>
 
-  <template ngFor let-item [ngForOf]="navitems" let-i="index" >
+  <ng-container *ngFor="let item of navitems; let i = index;">
     <span [class.selected]="item.selected" style="padding: 6px;" >
       <div (click)="clickOnTitle(item,$event)" style="display:inline" (hover)="hoverTitle(item)" >{{item.label}}</div>
       <ul>
-        <template ngFor let-subitem [ngForOf]="item.submenu" let-i="subindex" >
+        <ng-container *ngFor="let subitem of item.submenu;">
           <li (click)="clickOnSubTitle(subitem,$event)">{{subitem.label}}</li>
-        </template>
+        </ng-container>
       </ul>
     </span>
-  </template>
+  </ng-container>
 
   <div style="float:right">{{heure}}</div>
 </div>
