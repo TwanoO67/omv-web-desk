@@ -15,7 +15,7 @@ It looks like a Desktop UI, where your user would have some "App" providing easy
 
 Technically it's based on OMV (for the php part), Angular (as TS framework), Ventus (as Desktop manager)
 
-# Français
+# Description Français
 
 Bureau virtuel pour OMV.
 
@@ -32,20 +32,22 @@ Elle permettra de mettre rapidement les fichiers du nas à disposition.
 
 ## Installation
 
-Compiler une version "dist" ( `npm install` et `ng build --prod`)
 
-Déposez les fichiers du dossier "dist" et "omv" dans un hebergement web sur votre nas OMV (par exemple dans un vhost Nginx)
+* Create a new user "webdesk"
+* Create a new group "webdesk"
+* Edit user "webdesk" and put it in groups "users, www-data, openmediavault-config, openmediavault-engined, openmediavault-webgui, webdesk"
+* Create a shared dir, where you want to host the project files, named "webdesk"
+* Using the plugin "Nginx (websites)"
+* Create a new php pool "webdesk", using user "webdesk" and group "webdesk"
+* Create a new server, using pool "webdesk", and shared dir "webdesk", with the port you want
+* get [ElFinder](https://github.com/Studio-42/elFinder/archive/2.1.23.zip)
+* Unzip it in your webdesk folder, in a folder name "elfinder"
+* Copy the content of "dist" in the same folder (and overwrite the duplicate files)
+* It's ready !
+* Plus: Now you can configure your own icons/settings in "webdesk_config.js"
 
-Configurez vos propres icones en modifiant le fichier "webdesk_config.js"
 
-### Ajouter le finder
-
-Pour ajouter le navigateur de fichier, vous pouvez télécharger [ElFinder](https://github.com/Studio-42/elFinder/archive/2.1.23.zip)
-
-et le placer dans le même dossier que précédemment (en utilisant les fichier se trouvant dans "elfinder")
-
-
-## Securisation
+##  NOT USEFULL ANYMORE - Securisation
 Pour securiser cet écran derriere une page de login, vous pouvez utiliser le contenu du dossier "omv".
 Celui-ci limite l'accès au index.html, avec un index.php dans lequel votre session OpenMediaVault, pour vous servir de son login.
 

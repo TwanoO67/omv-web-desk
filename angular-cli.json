@@ -15,7 +15,7 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
-        "styles.css",
+        "styles.less",
         "vendor/ventus/normalize.css",
         "vendor/ventus/simple.css",
         "vendor/ventus/ventus.css"
