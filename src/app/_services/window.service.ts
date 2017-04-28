@@ -10,29 +10,30 @@ export class WindowService {
     this.wm = new Ventus.WindowManager();
   }
 
-  public createWindow(params){
-    let win = this.wm.createWindow(params);
+  public createWindow(params) {
+    const win = this.wm.createWindow(params);
     win.open();
     return win;
   }
 
-  public createWindowFromQuery(query,params){
-    let win = this.wm.createWindow.fromQuery(query, params);
+  public createWindowFromQuery(query, params) {
+    const win = this.wm.createWindow.fromQuery(query, params);
     win.open();
     return win;
   }
 
-  public createWindowFromElement(domElement,params){
-    let win = this.wm.createWindow.fromElement(domElement, params);
+  public createWindowFromElement(domElement, params) {
+    const win = this.wm.createWindow.fromElement(domElement, params);
     win.open();
     return win;
   }
 
-  public toggleExpose(){
-    if(this.wm.mode === 'expose')
+  public toggleExpose() {
+    if (this.wm.mode === 'expose') {
       this.wm.mode = 'default';
-    else
+    } else {
       this.wm.mode = 'expose';
+    }
   }
 
 

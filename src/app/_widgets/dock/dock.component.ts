@@ -18,7 +18,7 @@ export class DockComponent implements OnInit {
   private x_pos = 20;
   private y_pos = 20;
 
-  constructor(private _wm: WindowService ){
+  constructor(private _wm: WindowService ) {
 
   }
 
