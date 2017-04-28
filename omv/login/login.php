@@ -1,5 +1,5 @@
 <?php
-	$CONF = require('./login/config.php');	
+	$CONF = require('./login/config.php');
 ?>
 <html>
 	<body>
@@ -24,14 +24,14 @@
 			.wrap:hover{
 			  opacity:1;
 			}
-			
+
 			.login-wrap{
 				width:290px;
 				height:320px;
 				margin:15% auto 0;
 				position: relative;
 			}
-			
+
 			.login{
 				display: block;
 				margin:auto;
@@ -46,7 +46,7 @@
 				box-shadow: rgba(0,0,0,0.5) 0px 3px 20px;
 				text-align: center;
 			}
-			
+
 			.avatar{
 				display:block;
 				margin:0 auto 15px;
@@ -66,7 +66,7 @@
 				font-size: 0.95em;
 			  text-shadow:rgba(255,255,255,0.7) 0px 1px 0px;
 			}
-			
+
 			.pass{
 				display: block;
 				width:170px;
@@ -90,11 +90,11 @@
 			  -moz-transition:all 0.5s ease-in-out;
 			  transition:all 0.5s ease-in-out;
 			}
-			
+
 			.arrow.opac{
 				opacity: 1;
 			}
-			
+
 			.init-shake{
 				-webkit-animation:shake 0.7s ease-in-out;
 			  -moz-animation:shake 0.7s ease-in-out;
@@ -141,7 +141,7 @@
 				60% { left:10px; }
 				80% { left:-10px; }
 				100% { left:0px; }
-			
+
 			}
 			@-moz-keyframes shake{
 				0% { left:0; }
@@ -150,7 +150,7 @@
 				60% { left:10px; }
 				80% { left:-10px; }
 				100% { left:0px; }
-			
+
 			}
 			@keyframes shake{
 				0% { left:0; }
@@ -159,11 +159,11 @@
 				60% { left:10px; }
 				80% { left:-10px; }
 				100% { left:0px; }
-			
+
 			}
 </style>
-		
-		
+
+
 	<div class="login-wrap">
 		<div class="login" id="loginbox">
 			<div class="avatar">
@@ -172,7 +172,7 @@
 			<form id="login" class="login-form" onsubmit="login()">
 				<input type="text" placeholder="Utilisateur" class="pass" id="inputuser" onkeypress="return runScript(event)" /><span class="arrow" id="arrow">&rarr;</span>
 				<input type="password" placeholder="Mot de passe" class="pass" id="inputpass" onkeypress="return runScript(event)" /><span id="arrow_pass" class="arrow" id="arrow">&rarr;</span>
-				
+
 			</form>
 		</div>
 	</div>
@@ -183,12 +183,12 @@
 
 
 <script>
-	var input_user = document.getElementById("inputuser");	
+	var input_user = document.getElementById("inputuser");
 	var input_pass = document.getElementById("inputpass");
-	var login_box = document.getElementById("loginbox");	
+	var login_box = document.getElementById("loginbox");
 	var loader = document.getElementById("load");
 	var arrow = document.getElementById("arrow_pass");
-	
+
 	function runScript(e) {
 		if(e.srcElement === input_pass){
 			arrow.classList.add('opac');
@@ -207,7 +207,7 @@
 	        return false;
 	    }
 	}
-	
+
 	function login(){
 		input_user.classList.add("hide");
 		input_pass.classList.add("hide");
@@ -219,7 +219,7 @@
 		},function(data){
 			result = JSON.parse(data);
 			console.log(result);
-			if(result.response.authenticated === true){
+			if(result.authenticated === true){
 				document.location = "/";
 			}
 			else{
@@ -230,14 +230,14 @@
 			}
 		});
 	}
-	
+
 	function shake(){
 		login_box.classList.add("init-shake");
 		setTimeout(function(){
 			login_box.classList.remove("init-shake");
 		}, 1000);
 	}
-	
+
 	function post(url,obj,callback){
 		var http = new XMLHttpRequest();
 		var str = "";
@@ -248,10 +248,10 @@
 		    str += key + "=" + encodeURIComponent(obj[key]);
 		}
 		http.open("POST", url, true);
-		
+
 		//Send the proper header information along with the request
 		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		
+
 		http.onreadystatechange = function() {//Call a function when the state changes.
 		    if(http.readyState == 4 && http.status == 200) {
 		        callback(http.responseText);
@@ -260,7 +260,7 @@
 		http.send(str);
 	}
 </script>
-	
+
 
 </body>
 	</html>

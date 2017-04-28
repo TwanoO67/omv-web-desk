@@ -1,4 +1,4 @@
-NG2OS_CONFIG = {
+WEBDESK_CONFIG = {
   'iconWidth': 100,
   'navbar' : [
     {

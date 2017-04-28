@@ -36,7 +36,7 @@ Compiler une version "dist" ( `npm install` et `ng build --prod`)
 
 Déposez les fichiers du dossier "dist" et "omv" dans un hebergement web sur votre nas OMV (par exemple dans un vhost Nginx)
 
-Configurez vos propres icones en modifiant le fichier "ng2os_config.js"
+Configurez vos propres icones en modifiant le fichier "webdesk_config.js"
 
 ### Ajouter le finder
 

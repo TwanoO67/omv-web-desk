@@ -1,31 +1,57 @@
 <?php
+
+error_reporting(E_NOTICE && E_ALL); // Set E_ALL for debuging
+
+require_once("openmediavault/autoloader.inc");
+require_once("openmediavault/env.inc");
+require_once("openmediavault/functions.inc");
+require_once("openmediavault/globals.inc");
+
+use OMV\Rpc\Rpc;
+use OMV\System\MountPoint;
+
 session_start();
-//conf
-$CONF = require('./config.php');
-	
+
 //si on cherche a se connecter
 if( isset( $_POST['username'] ) && isset($_POST['password'] ) ){
-	$ch = curl_init( $CONF["omv_api_rpc"] );
-	# Setup request to send json via POST.
-	$payload = json_encode( array( 
-	"service"=> "Session", 
-	"method" => "login", 
-	"params" => array(
+
+	// Load and initialize the RPC services that are not handled by the
+	// engine daemon.
+	/*$directory = build_path(DIRECTORY_SEPARATOR, \OMV\Environment::get("OMV_DOCUMENTROOT_DIR"), "rpc");
+	foreach (listdir($directory, "inc") as $path) {
+		require_once $path;
+	}*/
+
+
+	$rpcServiceMngr = \OMV\Rpc\ServiceManager::getInstance();
+	$rpcServiceMngr->initializeServices();
+	// Initialize the data models.
+	$modelMngr = \OMV\DataModel\Manager::getInstance();
+	$modelMngr->load();
+	$session = &\OMV\Session::getInstance();
+
+	$params = array(
 		"username" => $_POST['username'],
 		"password" => $_POST['password']
-	) ) );
-	curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
-	curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-	# Return response instead of printing.
-	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-	# Send request.
-	$result = curl_exec($ch);
-	curl_close($ch);
-	
-	$data = json_decode($result,true);
-	$_SESSION['authenticated'] = $data['response']['authenticated'];
-	$_SESSION['username'] = $data['response']['username'];
-	echo $result;
+	);
+
+	$object = \OMV\Rpc\Rpc::call("UserMgmt", "authUser", $params, ['username' => 'admin', 'role' => OMV_ROLE_ADMINISTRATOR], \OMV\Rpc\Rpc::MODE_REMOTE, TRUE);
+		if (!is_null($object) && (TRUE === $object['authenticated'])) {
+			if ($session->isAuthenticated()) {
+				// Is the current session registered to the user to be authenticated?
+				if ($session->getUsername() !== $params['username']) {
+					$session->commit();
+					throw new \OMV\ErrorMsgException( \OMV\ErrorMsgException::E_SESSION_ALREADY_AUTHENTICATED );
+				}
+			} else {
+				// Initialize session.
+				$role = ($params['username'] === "admin") ? OMV_ROLE_ADMINISTRATOR : OMV_ROLE_USER;
+				$session->initialize($params['username'], $role);
+			}
+			$session->commit();
+		}
+		echo json_encode($object);
+
 }
 else{
 	echo "{'error':'No login information sent.'}";
