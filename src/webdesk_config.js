@@ -40,7 +40,7 @@ WEBDESK_CONFIG = {
     	  "id": "about",
     	  "image": "/assets/flatjoy-circle-deviantart/Apple.png",
     	  "title": "Présentation",
-    	  "text": "Bienvenue, sur l'interface de gestion de Bureau virtuel. Spécialement pour le user 'username'",
+    	  "text": " TEST with your username",
     	  "opened": false,
     	  "selected": false,
     	  "ref": null
@@ -57,17 +57,11 @@ WEBDESK_CONFIG = {
     	  "ref": null
     	},
     	{
-    	  "id": "jeedom",
-    	  "image": "/assets/flatjoy-circle-deviantart/Camcorder.png",
-    	  "iframe": "http://your-cam-recorder",
-    	  "title": "JeeDom"
-    	},
-    	{
     	  "id": "elfinder",
-    	  "image": "/assets/flatjoy-circle-deviantart/Drawers.png",
-    	  "iframe": "http://your-finder",
+    	  "image": "/assets/flatjoy-circle-deviantart/Folder%20Files.png",
+    	  "iframe": "/elfinder/elfinder.html",
     	  "title": "Finder"
-    	},
+    	}/*,
     	{
     	  "id": "omv",
     	  "image": "/assets/flatjoy-circle-deviantart/Chip.png",
@@ -88,7 +82,7 @@ WEBDESK_CONFIG = {
     	  "image": "/assets/flatjoy-circle-deviantart/Cone.png",
     	  "iframe": "http://your-sickrage-install/",
     	  "title": "SickRage"
-    	}
+    	}*/
     ]
   }
 }
