@@ -1,6 +1,6 @@
 # OMV Web Desk
 
-![Preview](https://github.com/TwanoO67/ng2-os/raw/master/src/assets/demo.gif)
+![Preview](https://github.com/TwanoO67/ng2-os/raw/master/src/demo.gif)
 
 # English description
 
@@ -45,7 +45,7 @@ Pour ajouter le navigateur de fichier, vous pouvez télécharger [ElFinder](http
 et le placer dans le même dossier que précédemment (en utilisant les fichier se trouvant dans "elfinder")
 
 
-## Securisation 
+## Securisation
 Pour securiser cet écran derriere une page de login, vous pouvez utiliser le contenu du dossier "omv".
 Celui-ci limite l'accès au index.html, avec un index.php dans lequel votre session OpenMediaVault, pour vous servir de son login.
 
@@ -63,4 +63,3 @@ dans votre conf nginx rajouter:
         rewrite ^(.*)$ /index.php break;
       }
     }
-

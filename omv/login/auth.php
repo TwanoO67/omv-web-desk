@@ -17,10 +17,10 @@ if( isset( $_POST['username'] ) && isset($_POST['password'] ) ){
 
 	// Load and initialize the RPC services that are not handled by the
 	// engine daemon.
-	/*$directory = build_path(DIRECTORY_SEPARATOR, \OMV\Environment::get("OMV_DOCUMENTROOT_DIR"), "rpc");
+	$directory = build_path(DIRECTORY_SEPARATOR, \OMV\Environment::get("OMV_DOCUMENTROOT_DIR"), "rpc");
 	foreach (listdir($directory, "inc") as $path) {
 		require_once $path;
-	}*/
+	}
 
 
 	$rpcServiceMngr = \OMV\Rpc\ServiceManager::getInstance();
@@ -30,6 +30,13 @@ if( isset( $_POST['username'] ) && isset($_POST['password'] ) ){
 	$modelMngr->load();
 	$session = &\OMV\Session::getInstance();
 
+
+	if ( $session->isAuthenticated() && $session->isTimeout() ) {
+		session_destroy();
+		session_start();
+		//$session = &\OMV\Session::getInstance();
+	}
+
 	$params = array(
 		"username" => $_POST['username'],
 		"password" => $_POST['password']
@@ -37,21 +44,14 @@ if( isset( $_POST['username'] ) && isset($_POST['password'] ) ){
 
 	$object = \OMV\Rpc\Rpc::call("UserMgmt", "authUser", $params, ['username' => 'admin', 'role' => OMV_ROLE_ADMINISTRATOR], \OMV\Rpc\Rpc::MODE_REMOTE, TRUE);
 		if (!is_null($object) && (TRUE === $object['authenticated'])) {
-			if ($session->isAuthenticated()) {
-				// Is the current session registered to the user to be authenticated?
-				if ($session->getUsername() !== $params['username']) {
-					$session->commit();
-					throw new \OMV\ErrorMsgException( \OMV\ErrorMsgException::E_SESSION_ALREADY_AUTHENTICATED );
-				}
-			} else {
+			if ( ! $session->isAuthenticated() ){
 				// Initialize session.
 				$role = ($params['username'] === "admin") ? OMV_ROLE_ADMINISTRATOR : OMV_ROLE_USER;
 				$session->initialize($params['username'], $role);
+				$session->commit();
 			}
-			$session->commit();
 		}
 		echo json_encode($object);
-
 }
 else{
 	echo "{'error':'No login information sent.'}";

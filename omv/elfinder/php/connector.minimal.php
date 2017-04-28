@@ -1,27 +1,93 @@
 <?php
 
-error_reporting(0); // Set E_ALL for debuging
+	require_once("openmediavault/autoloader.inc");
+	require_once("openmediavault/env.inc");
+	use OMV\Rpc\Rpc;
 
-//AW - verif si session omv
-session_start();
-if(
-	!isset($_SESSION['authenticated'])
-	|| !$_SESSION['authenticated']
-	|| !$_SESSION['username']
-	|| !$_SESSION['username'] === ""
-){
-	exit;
-}
+	// Display errors if debugging is enabled.
+	if (TRUE === \OMV\Environment::getBoolean("OMV_DEBUG_PHP")){
+		ini_set("display_errors", 1);
+	}
 
-//Verif si le username est clean pour déduire un nom de dossier
-$dossier = "../files/anonymous/";
-if( strpos($_SESSION['username'],'.') === false && strpos($_SESSION['username'],'/') === false){
-	$dossier = "../files/".$_SESSION['username']."/";
-}
+	$session = &\OMV\Session::getInstance();
+	$session->start();
 
+	$roots = [];
 
-// load composer autoload before load elFinder autoload If you need composer
-//require './vendor/autoload.php';
+	if ($session->isAuthenticated() /*&& !$session->isTimeout()*/) {
+
+		if($session->getUsername() == 'admin'){
+			$roots = [
+				[
+					'driver'        => 'LocalFileSystem',           // driver for accessing file system (REQUIRED)
+					'path'          => "/media",                 // path to files (REQUIRED)
+					'URL'           => dirname($_SERVER['PHP_SELF']) . '/media', // URL to files (REQUIRED)
+					//'uploadDeny'    => array('all'),                // All Mimetypes not allowed to upload
+					'uploadAllow'   => array('all'),//array('image', 'text/plain'),// Mimetype `image` and `text/plain` allowed to upload
+					'uploadOrder'   => array('deny', 'allow'),      // allowed Mimetype `image` and `text/plain` only
+					'accessControl' => 'access'                     // disable and hide dot starting files (OPTIONAL)
+				]
+			];
+		}
+		else{
+			//echo "<script> OMV = {}; OMV.USERNAME = '".$session->getUsername()."'; </script>";
+			$rpcServiceMngr = \OMV\Rpc\ServiceManager::getInstance();
+			$rpcServiceMngr->initializeServices();
+			// Initialize the data models.
+			$modelMngr = \OMV\DataModel\Manager::getInstance();
+			$modelMngr->load();
+
+			$service = "ShareMgmt";
+			$method = "getList";
+			$params = array(
+			"start" => 0 ,
+			"limit" => null
+			);
+			//$context = Rpc::createContext($session->getUsername(), $session->getRole());
+			//var_dump($context);exit;
+			$admin_context = Rpc::createContext("admin", OMV_ROLE_ADMINISTRATOR);
+
+			$result = Rpc::call($service, $method, $params, $admin_context, Rpc::MODE_REMOTE);
+
+			foreach($result['data'] as $folder){
+				if($folder['privileges'] !== '' && is_array($folder['privileges']['privilege']) ){
+					foreach($folder['privileges']['privilege'] as $perm){
+						if($perm['name'] === $session->getUsername()){
+							$dossier = $folder['mntent']['dir'].'/'.$folder['reldirpath'];
+
+							$conf = array(
+								'driver'        => 'LocalFileSystem',        // driver for accessing file system (REQUIRED)
+								'path'          => $dossier,                 // path to files (REQUIRED)
+								'URL'           => dirname($_SERVER['PHP_SELF']) .$dossier, // URL to files (REQUIRED)
+								'uploadOrder'   => array('deny', 'allow'),      // allowed Mimetype `image` and `text/plain` only
+								'accessControl' => 'access'                     // disable and hide dot starting files (OPTIONAL)
+							);
+
+							//ecriture
+							if($perm['perms'] === 7){
+								//All Mimetypes, or array('image', 'text/plain') allowed to upload
+								$conf = array_merge($conf, ['uploadAllow'   => ['all']]);
+							}
+							else{
+								$conf = array_merge($conf, ['uploadDeny'   => ['all']]);
+							}
+
+							$roots[] = $conf;
+						}
+						/*else{
+							echo "coucou";
+						}*/
+					}
+				}
+			}
+		}
+	}
+	else{
+		echo "pas de session";
+		exit;
+	}
+
+	//exit;
 
 // elFinder autoload
 require './autoload.php';
@@ -30,46 +96,6 @@ require './autoload.php';
 // Enable FTP connector netmount
 elFinder::$netDrivers['ftp'] = 'FTP';
 // ===============================================
-
-/**
- * # Dropbox volume driver need `composer require dropbox-php/dropbox-php:dev-master@dev`
- *  OR "dropbox-php's Dropbox" and "PHP OAuth extension" or "PEAR's HTTP_OAUTH package"
- * * dropbox-php: http://www.dropbox-php.com/
- * * PHP OAuth extension: http://pecl.php.net/package/oauth
- * * PEAR's HTTP_OAUTH package: http://pear.php.net/package/http_oauth
- *  * HTTP_OAUTH package require HTTP_Request2 and Net_URL2
- */
-// // Required for Dropbox.com connector support
-// // On composer
-// elFinder::$netDrivers['dropbox'] = 'Dropbox';
-// // OR on pear
-// include_once dirname(__FILE__).DIRECTORY_SEPARATOR.'elFinderVolumeDropbox.class.php';
-
-// // Dropbox driver need next two settings. You can get at https://www.dropbox.com/developers
-// define('ELFINDER_DROPBOX_CONSUMERKEY',    '');
-// define('ELFINDER_DROPBOX_CONSUMERSECRET', '');
-// define('ELFINDER_DROPBOX_META_CACHE_PATH',''); // optional for `options['metaCachePath']`
-// ===============================================
-
-// // Required for Google Drive network mount
-// // Installation by composer
-// // `composer require nao-pon/flysystem-google-drive:~1.1 google/apiclient:~2.0@rc nao-pon/elfinder-flysystem-driver-ext`
-// // Enable network mount
-// elFinder::$netDrivers['googledrive'] = 'FlysystemGoogleDriveNetmount';
-// // GoogleDrive Netmount driver need next two settings. You can get at https://console.developers.google.com
-// // AND reuire regist redirect url to "YOUR_CONNECTOR_URL?cmd=netmount&protocol=googledrive&host=1"
-// define('ELFINDER_GOOGLEDRIVE_CLIENTID',     '');
-// define('ELFINDER_GOOGLEDRIVE_CLIENTSECRET', '');
-// ===============================================
-
-/**
- * Simple function to demonstrate how to control file access using "accessControl" callback.
- * This method will disable accessing files/folders starting from '.' (dot)
- *
- * @param  string  $attr  attribute name (read|write|locked|hidden)
- * @param  string  $path  file path relative to volume root directory started with directory separator
- * @return bool|null
- **/
 function access($attr, $path, $data, $volume) {
 	return strpos(basename($path), '.') === 0       // if file/folder begins with '.' (dot)
 		? !($attr == 'read' || $attr == 'write')    // set read+write to false, other (locked+hidden) set to true
@@ -81,18 +107,8 @@ function access($attr, $path, $data, $volume) {
 // https://github.com/Studio-42/elFinder/wiki/Connector-configuration-options
 $opts = array(
 	// 'debug' => true,
-	'roots' => array(
-		array(
-			'driver'        => 'LocalFileSystem',           // driver for accessing file system (REQUIRED)
-			'path'          => $dossier,                 // path to files (REQUIRED)
-			'URL'           => dirname($_SERVER['PHP_SELF']) . '/'.$dossier, // URL to files (REQUIRED)
-			'uploadDeny'    => array('all'),                // All Mimetypes not allowed to upload
-			'uploadAllow'   => array('image', 'text/plain'),// Mimetype `image` and `text/plain` allowed to upload
-			'uploadOrder'   => array('deny', 'allow'),      // allowed Mimetype `image` and `text/plain` only
-			'accessControl' => 'access'                     // disable and hide dot starting files (OPTIONAL)
-		)
-	)
-);
+	'locale' => "fr_FR.UTF-8",
+	'roots' => $roots);
 
 // run elFinder
 $connector = new elFinderConnector(new elFinder($opts));
