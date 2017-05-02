@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port=4300",
-    "build": "ng build --prod && cp -r omv/* dist/*",
+    "build": "ng build --prod && cp -r omv/* dist/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
