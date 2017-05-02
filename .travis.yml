@@ -15,6 +15,8 @@ before_script:
   - sh -e /etc/init.d/xvfb start
   - echo $TRAVIS_BUILD_DIR
 #  - cp $TRAVIS_BUILD_DIR/src/environments/environment.ts $TRAVIS_BUILD_DIR/src/environments/environment.prod.ts
+before_install:
+  - apt-get install zip unzip
 install:
   - yarn
 script:
@@ -22,7 +24,17 @@ script:
   - yarn run lint
 # compilation du projet
   - yarn run build
+# récuperation de elfinder
+  - curl -o elfinder.zip https://github.com/Studio-42/elFinder/archive/2.1.23.zip
+  - unzip -d elfinder elfinder.zip
+  - cd elfinder
+  - ls -al
+  - cd ..
+# on construit une release
+  - mkdir release
+  - cp -r elfinder/* release/
+  - cp -rf dist/* release/
 # envoi sur le serveur de livraison
-  - cd dist
+  - cd release
   - tar -zcvf dist-omv-web-desk.tar.gz *
   - curl --header "WAM_UPLOAD_TOKEN: $WAM_UPLOAD_TOKEN" --header "TRAVIS_REPO: $TRAVIS_REPO_SLUG" --request POST --data-binary "@dist-omv-web-desk.tar.gz"  http://dl.weberantoine.fr/reception.php
