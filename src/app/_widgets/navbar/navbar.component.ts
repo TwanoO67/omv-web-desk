@@ -1,10 +1,7 @@
-import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, HostListener } from '@angular/core';
 import { NavbarItem } from '../../_models/navbar-item';
 
 @Component({
-  host: {
-    '(document:click)': 'onOutsideClick($event)',
-  },
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
@@ -75,9 +72,12 @@ export class NavbarComponent implements OnInit {
   }
 
   // click à l'exterieur du document
-  public onOutsideClick(event) {
+  @HostListener('document:click', ['$event']) public onOutsideClick(event) {
+    console.log('tout click');
+    console.log(event);
     if (!this._eref.nativeElement.contains(event.target)) { // or some similar check
      this.unselectAll();
+     console.log('hors scope');
     }
   }
 
