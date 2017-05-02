@@ -1,4 +1,4 @@
-# OMV Web Desk
+# OMV Web Desk [![Build Status](https://travis-ci.org/TwanoO67/omv-web-desk.svg?branch=master)](https://travis-ci.org/TwanoO67/omv-web-desk)
 
 ![Preview](https://github.com/TwanoO67/ng2-os/raw/master/demo.gif)
 

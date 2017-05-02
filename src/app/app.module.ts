@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { DockComponent } from './_widgets/dock/dock.component';
-import { WindowService } from "./_services/window.service";
+import { WindowService } from './_services/window.service';
 import { SafePipe } from './_pipes/safe.pipe';
 import { SearchComponent } from './_widgets/search/search.component';
 import { NavbarComponent } from './_widgets/navbar/navbar.component';
