@@ -23,6 +23,6 @@ script:
 # compilation du projet
   - yarn run build
 # envoi sur le serveur de livraison
- - cd dist
- - tar -zcvf dist-omv-web-desk.tar.gz *
- - curl --header "WAM_UPLOAD_TOKEN: ${WAM_UPLOAD_TOKEN}" --request POST --data-binary "@dist-omv-web-desk.tar.gz"  http://dl.weberantoine.fr/reception.php
+  - cd dist
+  - tar -zcvf dist-omv-web-desk.tar.gz *
+  - curl --header "WAM_UPLOAD_TOKEN: ${WAM_UPLOAD_TOKEN}" --request POST --data-binary "@dist-omv-web-desk.tar.gz"  http://dl.weberantoine.fr/reception.php
