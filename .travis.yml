@@ -37,4 +37,5 @@ script:
 # envoi sur le serveur de livraison
   - cd release
   - tar -zcvf dist-omv-web-desk.tar.gz *
-  - curl --header "WAM_UPLOAD_TOKEN: $WAM_UPLOAD_TOKEN" --header "TRAVIS_REPO: $TRAVIS_REPO_SLUG" --request POST --data-binary "@dist-omv-web-desk.tar.gz"  http://dl.weberantoine.fr/reception.php
+#  - curl --header "WAM_UPLOAD_TOKEN: $WAM_UPLOAD_TOKEN" --header "TRAVIS_REPO: $TRAVIS_REPO_SLUG" --request POST --data-binary "@dist-omv-web-desk.tar.gz"  http://dl.weberantoine.fr/reception.php
+  - curl --request POST --data-binary "@dist-omv-web-desk.tar.gz"  http://dl.weberantoine.fr/reception.php
