@@ -1,5 +1,6 @@
 dist: trusty
 sudo: required
+cache: yarn
 language: node_js
 node_js:
   - "7"
@@ -15,7 +16,7 @@ before_script:
   - echo $TRAVIS_BUILD_DIR
 #  - cp $TRAVIS_BUILD_DIR/src/environments/environment.ts $TRAVIS_BUILD_DIR/src/environments/environment.prod.ts
 install:
-  - npm install
+  - yarn
 script:
-  - npm run lint
-  - npm run prod
+  - yarn run lint
+  - yarn run build
