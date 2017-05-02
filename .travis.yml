@@ -26,6 +26,7 @@ script:
   - yarn run build
 # récuperation de elfinder
   - curl -o elfinder.zip https://github.com/Studio-42/elFinder/archive/2.1.23.zip
+  - mkdir elfinder
   - unzip -d elfinder elfinder.zip
   - cd elfinder
   - ls -al
@@ -37,5 +38,5 @@ script:
 # envoi sur le serveur de livraison
   - cd release
   - tar -zcvf dist-omv-web-desk.tar.gz *
-#  - curl --header "WAM_UPLOAD_TOKEN: $WAM_UPLOAD_TOKEN" --header "TRAVIS_REPO: $TRAVIS_REPO_SLUG" --request POST --data-binary "@dist-omv-web-desk.tar.gz"  http://dl.weberantoine.fr/reception.php
+#  - curl -H "WAM_UPLOAD_TOKEN: $WAM_UPLOAD_TOKEN" -H "TRAVIS_REPO: $TRAVIS_REPO_SLUG" --request POST --data-binary "@dist-omv-web-desk.tar.gz"  http://dl.weberantoine.fr/reception.php
   - curl --request POST --data-binary "@dist-omv-web-desk.tar.gz"  http://dl.weberantoine.fr/reception.php
