@@ -16,7 +16,7 @@ before_script:
   - echo $TRAVIS_BUILD_DIR
 #  - cp $TRAVIS_BUILD_DIR/src/environments/environment.ts $TRAVIS_BUILD_DIR/src/environments/environment.prod.ts
 before_install:
-  - apt-get install zip unzip
+  - sudo apt-get install -y zip unzip
 install:
   - yarn
 script:
