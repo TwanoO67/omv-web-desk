@@ -73,11 +73,8 @@ export class NavbarComponent implements OnInit {
 
   // click à l'exterieur du document
   @HostListener('document:click', ['$event']) public onOutsideClick(event) {
-    console.log('tout click');
-    console.log(event);
     if (!this._eref.nativeElement.contains(event.target)) { // or some similar check
      this.unselectAll();
-     console.log('hors scope');
     }
   }
 
