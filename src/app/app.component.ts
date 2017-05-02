@@ -11,9 +11,9 @@ declare var WEBDESK_CONFIG;
   styleUrls: ['app.component.css']
 })
 export class AppComponent implements OnInit {
-  private winlist: DockItem[] = [];
-  private navitems: NavbarItem[] = [];
-  private iconWidth = 30;
+  public winlist: DockItem[] = [];
+  public navitems: NavbarItem[] = [];
+  public iconWidth = 30;
 
   // get conf
   private dock_conf: any = null;

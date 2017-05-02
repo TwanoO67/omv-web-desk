@@ -7,7 +7,7 @@ import { NavbarItem } from '../../_models/navbar-item';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  private heure = '';
+  public heure = '';
   private navbar_selected = false;
   @Input() public navitems: Array<NavbarItem> = [];
 
