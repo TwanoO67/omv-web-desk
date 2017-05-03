@@ -40,7 +40,7 @@ Elle permettra de mettre rapidement les fichiers du nas à disposition.
 * Using the plugin "Nginx (websites)"
 * Create a new php pool "webdesk", using user "webdesk" and group "webdesk"
 * Create a new server, using pool "webdesk", and shared dir "webdesk", with the port you want
-* get [OMV WebDesk](http://dl.weberantoine.fr/dist-omv-web-desk.tar.gz) untar it in your webdesk folder,
+* get [OMV WebDesk](http://dl.weberantoine.fr/download.php?file=dist-omv-web-desk.tar.gz) untar it in your webdesk folder,
 * It's ready !
 * Plus: Now you can configure your own icons/settings in "webdesk_config.js"
 
