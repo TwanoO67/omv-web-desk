@@ -40,9 +40,7 @@ Elle permettra de mettre rapidement les fichiers du nas à disposition.
 * Using the plugin "Nginx (websites)"
 * Create a new php pool "webdesk", using user "webdesk" and group "webdesk"
 * Create a new server, using pool "webdesk", and shared dir "webdesk", with the port you want
-* get [ElFinder](https://github.com/Studio-42/elFinder/archive/2.1.23.zip)
-* Unzip it in your webdesk folder, in a folder name "elfinder"
-* Copy the content of "dist" in the same folder (and overwrite the duplicate files)
+* get [OMV WebDesk](http://dl.weberantoine.fr/dist-omv-web-desk.tar.gz) untar it in your webdesk folder,
 * It's ready !
 * Plus: Now you can configure your own icons/settings in "webdesk_config.js"
 

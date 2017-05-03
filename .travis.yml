@@ -36,5 +36,4 @@ script:
 # envoi sur le serveur de livraison
   - cd release
   - tar -zcvf dist-omv-web-desk.tar.gz *
-  - curl -H "WAM_UPLOAD_TOKEN: $WAM_UPLOAD_TOKEN" --request POST --data-binary "@dist-omv-web-desk.tar.gz"  http://dl.weberantoine.fr/reception.php
-  - curl --request POST --data-binary "@dist-omv-web-desk.tar.gz"  http://dl.weberantoine.fr/reception.php
+  - "curl -H 'WAM_UPLOAD_TOKEN: $WAM_UPLOAD_TOKEN' --request POST --data-binary \"@dist-omv-web-desk.tar.gz\"  http://dl.weberantoine.fr/reception.php"
