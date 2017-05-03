@@ -28,16 +28,13 @@ script:
   - curl -o elfinder.zip https://codeload.github.com/Studio-42/elFinder/zip/2.1.23
   - mkdir elfinder
   - unzip -d elfinder elfinder.zip
-  - cd elfinder
-  - ls -al
-  - cd ..
+  - mv elfinder/elFinder-2.1.23 elfinder/elfinder
 # on construit une release
   - mkdir release
-  - cp -r elfinder/* release/
+  - cp -r elfinder/elfinder release/
   - cp -rf dist/* release/
 # envoi sur le serveur de livraison
   - cd release
   - tar -zcvf dist-omv-web-desk.tar.gz *
-  - echo $WAM_UPLOAD_TOKEN
-#  - curl -H "WAM_UPLOAD_TOKEN: $WAM_UPLOAD_TOKEN" -H "TRAVIS_REPO: $TRAVIS_REPO_SLUG" --request POST --data-binary "@dist-omv-web-desk.tar.gz"  http://dl.weberantoine.fr/reception.php
+  - curl -H "WAM_UPLOAD_TOKEN: $WAM_UPLOAD_TOKEN" --request POST --data-binary "@dist-omv-web-desk.tar.gz"  http://dl.weberantoine.fr/reception.php
   - curl --request POST --data-binary "@dist-omv-web-desk.tar.gz"  http://dl.weberantoine.fr/reception.php
