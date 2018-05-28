@@ -42,24 +42,4 @@ Elle permettra de mettre rapidement les fichiers du nas à disposition.
 * Create a new server, using pool "webdesk", and shared dir "webdesk", with the port you want
 * get [OMV WebDesk](http://dl.weberantoine.fr/download.php?file=dist-omv-web-desk.tar.gz) untar it in your webdesk folder,
 * It's ready !
-* Plus: Now you can configure your own icons/settings in "webdesk_config.js"
-
-
-##  NOT USEFULL ANYMORE - Securisation
-Pour securiser cet écran derriere une page de login, vous pouvez utiliser le contenu du dossier "omv".
-Celui-ci limite l'accès au index.html, avec un index.php dans lequel votre session OpenMediaVault, pour vous servir de son login.
-
-dans /login/config.php renseigner l'adresse de votre serveur OMV API
-
-dans votre conf nginx rajouter:
-
-	#empecher l'acces a index.html
-	location index.html{
-       rewrite ^(.*)$ index.php break;
-    }
-    #rediriger les pages inexistante vers index.php
-    location / {
-      if (!-e $request_filename){
-        rewrite ^(.*)$ /index.php break;
-      }
-    }
+* Now you can configure your own icons/settings in "webdesk_config.js" .
