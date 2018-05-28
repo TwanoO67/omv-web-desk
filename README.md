@@ -41,5 +41,6 @@ Elle permettra de mettre rapidement les fichiers du nas à disposition.
 * Create a new php pool "webdesk", using user "webdesk" and group "webdesk"
 * Create a new server, using pool "webdesk", and shared dir "webdesk", with the port you want
 * get [OMV WebDesk](http://dl.weberantoine.fr/download.php?file=dist-omv-web-desk.tar.gz) untar it in your webdesk folder,
+* Update the file "login/config.php" with your omv server url
 * It's ready !
 * Now you can configure your own icons/settings in "webdesk_config.js" .
