@@ -1,0 +1,25 @@
+version: '2.0'
+services:
+  omv:
+     container_name: omv
+     image: ikogan/openmediavault
+     volumes:
+     #On utilise la clef ssh, et config git du poste courant
+      - "./data:/data:Z"
+      - "./var/service/webdesk:/var/www/openmediavault/js/omv/module/admin/service/webdesk"
+      - "./usr/webdesk.inc:/usr/share/openmediavault/engined/rpc/webdesk.inc"
+      - "./usr/module/webdesk.inc:/usr/share/openmediavault/engined/module/webdesk.inc"
+      - "./bin:/var/www/bin"
+     environment:
+      - AGENDA=/var/www/html/agenda
+     restart: always
+     working_dir: /var/www/bin
+     ports:
+     - "${HTTP_PORT}:80"
+     networks:
+      default:
+       aliases:
+        - "openmediavault.example.test"
+     #links:
+      # for mysql container
+      #- "db:db"

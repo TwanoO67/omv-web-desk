@@ -30,6 +30,14 @@ Elle permettra de mettre rapidement les fichiers du nas à disposition.
 
 (Ce projet est basé sur OMV, Angular et Ventus )
 
+## Développement sous docker
+
+choisir un port dans .env
+docker-compose up -d
+puis se connecter a localhost avec admin/openmediavault
+
+Basé sur le tuto: https://forum.openmediavault.org/index.php/Thread/5600-DIY-Plugin-Development/
+
 ## Installation
 
 
