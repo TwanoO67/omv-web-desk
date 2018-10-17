@@ -1,0 +1,45 @@
+#!/bin/sh
+
+set -e
+
+. /etc/default/openmediavault
+. /usr/share/openmediavault/scripts/helper-functions
+
+SERVICE_XPATH_NAME="webdesk"
+OMV_SERVICE_XPATH="/config/services/$SERVICE_XPATH_NAME"
+OMV_SERVICE_CONF="/tmp/$SERVICE_XPATH_NAME.conf"
+
+cat <<EOF > ${OMV_SERVICE_CONF}
+enable    = $(omv_config_get "${OMV_SERVICE_XPATH}/enable")
+max_value = $(omv_config_get "${OMV_SERVICE_XPATH}/max_value")
+EOF
+
+#Récupération des configs
+PORT = $(omv_config_get "${OMV_SERVICE_XPATH}/port")
+
+
+#création du vhost nginx
+CONF_NAME="webdesk.conf"
+OMV_NGINX_CUSTOM_CONF="/etc/nginx/conf.d/$CONF_NAME"
+echo "
+server {
+    listen $PORT;
+    listen [::]:$PORT;
+    set $root_path "/etc/webdesk";
+    root $root_path;
+    index index.php;
+    set $socket "unix:/var/run/php-fpm-openmediavault-webgui.sock";
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass $socket;
+    }
+    access_log /var/log/nginx/webdesk-access.log;
+    error_log  /var/log/nginx/webdesk-error.log;
+    large_client_header_buffers 4 8k;
+}
+"  >> "$OMV_NGINX_CUSTOM_CONF"
+
+ln -s $OMV_NGINX_CUSTOM_CONF /etc/nginx/sites-available/$CONF_NAME
+
+
+exit 0
