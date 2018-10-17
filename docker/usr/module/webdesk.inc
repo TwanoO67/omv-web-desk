@@ -15,7 +15,6 @@ class OMVModuleWebdesk extends OMVModuleServiceAbstract implements
 	 * @var string
 	 */
 	private $eventMessagePath = 'org.openmediavault.services.webdesk';
-	}
 
 	/**
 	 * Get the base XPath of the service. This is a helper function to avoid
