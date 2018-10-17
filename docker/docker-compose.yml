@@ -7,8 +7,9 @@ services:
      #On utilise la clef ssh, et config git du poste courant
       - "./data:/data:Z"
       - "./var/service/webdesk:/var/www/openmediavault/js/omv/module/admin/service/webdesk"
-      - "./usr/webdesk.inc:/usr/share/openmediavault/engined/rpc/webdesk.inc"
-      - "./usr/module/webdesk.inc:/usr/share/openmediavault/engined/module/webdesk.inc"
+      - "./usr/share/openmediavault/engined/rpc/webdesk.inc:/usr/share/openmediavault/engined/rpc/webdesk.inc"
+      - "./usr/share/openmediavault/engined/module/webdesk.inc:/usr/share/openmediavault/engined/module/webdesk.inc"
+      - "./usr/share/openmediavault/mkconf/webdesk:/usr/share/openmediavault/mkconf/webdesk"
       - "./bin:/var/www/bin"
      environment:
       - AGENDA=/var/www/html/agenda
