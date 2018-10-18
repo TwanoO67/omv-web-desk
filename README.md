@@ -34,6 +34,8 @@ Elle permettra de mettre rapidement les fichiers du nas à disposition.
 
 choisir un port dans .env
 docker-compose up -d
+./enter.sh
+/bin/sh postinst configure
 puis se connecter a localhost avec admin/openmediavault
 
 Basé sur le tuto: https://forum.openmediavault.org/index.php/Thread/5600-DIY-Plugin-Development/

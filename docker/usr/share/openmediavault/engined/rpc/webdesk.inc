@@ -76,7 +76,7 @@ class OMVRpcServiceWebdesk extends OMVRpcServiceAbstract
 		// boolval and intval converts strings and numbers to their boolean
 		// and integer value.
 		$object['enable'] = boolval($object['enable']);
-		$object['max_value'] = intval($object['max_value']);
+		$object['port'] = intval($object['port']);
 
 		return $object;
 	}
@@ -101,10 +101,10 @@ class OMVRpcServiceWebdesk extends OMVRpcServiceAbstract
 					"enable": {
 						"type": "boolean"
 					},
-					"max_value":{
+					"port":{
 						"type": "integer",
-						"minimum": 1,
-						"maximum": 100
+						"minimum": 80,
+						"maximum": 30000
 					}
 				}
 			}'
@@ -113,7 +113,7 @@ class OMVRpcServiceWebdesk extends OMVRpcServiceAbstract
 		// Update the configuration object.
 		$object = [
 			'enable' => boolval($params['enable']),
-			'max_value' => $params['max_value'],
+			'port' => $params['port'],
 		];
 
 		// Update the configuration file. If it fails it throws an exception.

@@ -31,10 +31,10 @@ Ext.define('OMV.module.admin.service.webdesk.Settings', {
             },
             {
                 xtype: 'numberfield',
-                name: 'max_value',
-                fieldLabel: _('Max value'),
-                minValue: 0,
-                maxValue: 100,
+                name: 'port',
+                fieldLabel: _('Port'),
+                minValue: 80,
+                maxValue: 30000,
                 allowDecimals: false,
                 allowBlank: true
             }]

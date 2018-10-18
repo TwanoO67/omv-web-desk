@@ -5,7 +5,6 @@ services:
      image: ikogan/openmediavault
      volumes:
      #On utilise la clef ssh, et config git du poste courant
-      - "./data:/data:Z"
       - "./var/service/webdesk:/var/www/openmediavault/js/omv/module/admin/service/webdesk"
       - "./usr/share/openmediavault/engined/rpc/webdesk.inc:/usr/share/openmediavault/engined/rpc/webdesk.inc"
       - "./usr/share/openmediavault/engined/module/webdesk.inc:/usr/share/openmediavault/engined/module/webdesk.inc"
@@ -16,7 +15,9 @@ services:
      restart: always
      working_dir: /var/www/bin
      ports:
-     - "${HTTP_PORT}:80"
+     - "0:80"
+     - "0:22"
+     - "0:3000"
      networks:
       default:
        aliases:
