@@ -25,7 +25,7 @@ GROUPNAME="webdesk"
 FPM_DIR="/etc/php/7.0/fpm/pool.d"
 if [ ! -d $FPM_DIR ]
 then
-  FPM_DIR="/etc/php/5/fpm/pool.d"
+  FPM_DIR="/etc/php5/fpm/pool.d"
   if [ ! -d $FPM_DIR ]
   then
     mkdir -p $PROJECT_PATH
@@ -75,22 +75,23 @@ then
   }
   "  > $OMV_NGINX_CUSTOM_CONF
 
-  echo "==> Creating linux user webdesk" >> $INSTALL_LOG
-
-  id -u $USERNAME &>/dev/null || useradd $USERNAME
-
   echo "==> Creating linux group webdesk" >> $INSTALL_LOG
 
   getent group $GROUPNAME || groupadd $GROUPNAME
+
+  echo "==> Creating linux user webdesk" >> $INSTALL_LOG
+
+  id -u $USERNAME &>/dev/null || useradd $USERNAME -g $GROUPNAME
 
   echo "==> add user to needed groups" >> $INSTALL_LOG
 
   usermod -a -G webdesk $USERNAME
   usermod -a -G users $USERNAME
   usermod -a -G www-data $USERNAME
-  usermod -a -G openmediavault-config $USERNAME
-  usermod -a -G openmediavault-engined $USERNAME
-  usermod -a -G openmediavault-webgui $USERNAME
+  usermod -a -G openmediavault $USERNAME
+  #usermod -a -G openmediavault-config $USERNAME
+  #usermod -a -G openmediavault-engined $USERNAME
+  #usermod -a -G openmediavault-webgui $USERNAME
 
   echo "==> Creating PHP-FPM Config file" >> $INSTALL_LOG
 

@@ -9,14 +9,16 @@ services:
       - "./usr/share/openmediavault/engined/rpc/webdesk.inc:/usr/share/openmediavault/engined/rpc/webdesk.inc"
       - "./usr/share/openmediavault/engined/module/webdesk.inc:/usr/share/openmediavault/engined/module/webdesk.inc"
       - "./usr/share/openmediavault/mkconf/webdesk:/usr/share/openmediavault/mkconf/webdesk"
+      - "./var/www/openmediavault/images/webdesk:/var/www/openmediavault/images/webdesk"
       - "./bin:/var/www/bin"
-     environment:
-      - AGENDA=/var/www/html/agenda
+     #environment:
+    #  - AGENDA=/var/www/html/agenda
      restart: always
      working_dir: /var/www/bin
      ports:
      - "0:80"
      - "0:22"
+     - "0:90"
      - "0:3000"
      networks:
       default:

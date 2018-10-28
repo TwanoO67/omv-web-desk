@@ -14,6 +14,6 @@ OMV.WorkspaceManager.registerNode({
     id: 'webdesk',
     path: '/service',
     text: _('Webdesk'),
-    icon16: 'images/desk-lamp.png',
-    iconSvg: 'images/desk-lamp.svg'
+    icon16: 'images/webdesk/desk-lamp.png',
+    iconSvg: 'images/webdesk/desk-lamp.svg'
 });
