@@ -15,32 +15,59 @@ ENABLE=`omv_config_get "${OMV_SERVICE_XPATH}/enable"`
 
 CONF_NAME="webdesk.conf"
 OMV_NGINX_CUSTOM_CONF="/etc/nginx/conf.d/$CONF_NAME"
+
 PROJECT_PATH="/etc/webdesk"
+INSTALL_LOG="/etc/webdesk/webdesk_setup_log"
+USERNAME="webdesk"
+GROUPNAME="webdesk"
+
+#for php7 compatibility / OMV4
+FPM_DIR="/etc/php/7.0/fpm/pool.d"
+if [ ! -d $FPM_DIR ]
+then
+  FPM_DIR="/etc/php/5/fpm/pool.d"
+  if [ ! -d $FPM_DIR ]
+  then
+    mkdir -p $PROJECT_PATH
+    echo "Install failed: no FPM dir detected" > $INSTALL_LOG
+  fi
+fi
+FPM_CUSTOM_CONF="${FPM_DIR}/${CONF_NAME}"
 
 if [ $ENABLE -eq 1 ]
 then
 
+
+
   #Installation du projet
   if [ ! -d $PROJECT_PATH ]
   then
+    echo "Install started from scratch" > $INSTALL_LOG
     mkdir -p $PROJECT_PATH
     cd $PROJECT_PATH
     wget http://dl.weberantoine.fr/download.php?file=dist-omv-web-desk.tar.gz -O webdesk.tar.gz
     tar -zxvf webdesk.tar.gz
+    rm webdesk.tar.gz
+    echo "==> unzipping project" >> $INSTALL_LOG
+  else
+    echo "Install started from existing dir" > $INSTALL_LOG
   fi
+
+  echo "==> Creating NGINX Config file" >> $INSTALL_LOG
 
   #création ou update de la conf vost nginx
   echo "
   server {
       listen $PORT;
-      listen [::]:$PORT;
-      set \$root_path "$PROJECT_PATH";
-      root \$root_path;
+      root $PROJECT_PATH;
       index index.php;
-      set \$socket "unix:/var/run/php-fpm-openmediavault-webgui.sock";
       location ~ \.php$ {
-          #include snippets/fastcgi-php.conf;
-          fastcgi_pass \$socket;
+        try_files \$uri =404;
+        fastcgi_split_path_info ^(.+?\.php)(/.+)$;
+        fastcgi_pass unix:/var/run/php-omv-webdesk.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
+        include /etc/nginx/fastcgi_params;
       }
       access_log /var/log/nginx/webdesk-access.log;
       error_log  /var/log/nginx/webdesk-error.log;
@@ -48,16 +75,82 @@ then
   }
   "  > $OMV_NGINX_CUSTOM_CONF
 
-  ln -s $OMV_NGINX_CUSTOM_CONF /etc/nginx/sites-available/$CONF_NAME
+  echo "==> Creating linux user webdesk" >> $INSTALL_LOG
+
+  id -u $USERNAME &>/dev/null || useradd $USERNAME
+
+  echo "==> Creating linux group webdesk" >> $INSTALL_LOG
+
+  getent group $GROUPNAME || groupadd $GROUPNAME
+
+  echo "==> add user to needed groups" >> $INSTALL_LOG
+
+  usermod -a -G webdesk $USERNAME
+  usermod -a -G users $USERNAME
+  usermod -a -G www-data $USERNAME
+  usermod -a -G openmediavault-config $USERNAME
+  usermod -a -G openmediavault-engined $USERNAME
+  usermod -a -G openmediavault-webgui $USERNAME
+
+  echo "==> Creating PHP-FPM Config file" >> $INSTALL_LOG
+
+  echo "
+  [webdesk]
+  user = $USERNAME
+  group = $GROUPNAME
+  listen = /var/run/php-omv-webdesk.sock
+  listen.owner = www-data
+  listen.group = www-data
+  pm = dynamic
+  pm.max_children = 5
+  pm.start_servers = 2
+  pm.min_spare_servers = 1
+  pm.max_spare_servers = 3
+  chdir = /
+  " > $FPM_CUSTOM_CONF
+
+  if [ ! -f /etc/nginx/sites-available/$CONF_NAME ]
+  then
+    echo "==> Link NGINX Config in sites-available" >> $INSTALL_LOG
+    ln -s $OMV_NGINX_CUSTOM_CONF /etc/nginx/sites-available/$CONF_NAME
+  fi
+
+  echo "==> Restaring nginx and php-fpm" >> $INSTALL_LOG
 
   service nginx restart
+  service php-fpm restart
+
+  echo "restart" >> $INSTALL_LOG
 else
   ##supression du vhost
-  rmlink /etc/nginx/sites-available/$CONF_NAME
-  rm $OMV_NGINX_CUSTOM_CONF
+  if [ -f /etc/nginx/sites-available/$CONF_NAME ]
+  then
+    rm /etc/nginx/sites-available/$CONF_NAME
+  fi
+
+  #suprresion des conf
+  if [ -f $OMV_NGINX_CUSTOM_CONF ]
+  then
+    rm $OMV_NGINX_CUSTOM_CONF
+  fi
+  if [ -f $FPM_CUSTOM_CONF ]
+  then
+    rm $FPM_CUSTOM_CONF
+  fi
+
 
   ##suppression du projet
-  rm -rf $PROJECT_PATH
+  if [ -d $PROJECT_PATH ]
+  then
+    rm -rf $PROJECT_PATH
+  fi
+
+  #suppression du user si existant
+  id -u $USERNAME &>/dev/null || deluser $USERNAME
+
+  service nginx restart
+  service php-fpm restart
+
 fi
 
 

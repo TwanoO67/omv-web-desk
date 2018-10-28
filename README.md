@@ -30,18 +30,22 @@ Elle permettra de mettre rapidement les fichiers du nas à disposition.
 
 (Ce projet est basé sur OMV, Angular et Ventus )
 
+## Générer une demo
+
+filmer votre démo avec capture de mac
+puis convertissez votre fichier .mov en gif avec "mov_to_git.sh"
+
 ## Développement sous docker
 
-choisir un port dans .env
-docker-compose up -d
-./enter.sh
-/bin/sh postinst configure
-puis se connecter a localhost avec admin/openmediavault
+* choisir un port dans .env
+* `docker-compose up -d`
+* `./enter.sh`
+* `/bin/sh postinst configure`
+* puis se connecter a localhost avec admin/openmediavault
 
 Basé sur le tuto: https://forum.openmediavault.org/index.php/Thread/5600-DIY-Plugin-Development/
 
-## Installation
-
+## Installation manuelle
 
 * Create a new user "webdesk"
 * Create a new group "webdesk"
