@@ -2,14 +2,14 @@ version: '2.0'
 services:
   omv:
      container_name: omv
-     image: ikogan/openmediavault
+     build: ./build
      volumes:
      #On utilise la clef ssh, et config git du poste courant
-      - "./var/service/webdesk:/var/www/openmediavault/js/omv/module/admin/service/webdesk"
-      - "./usr/share/openmediavault/engined/rpc/webdesk.inc:/usr/share/openmediavault/engined/rpc/webdesk.inc"
-      - "./usr/share/openmediavault/engined/module/webdesk.inc:/usr/share/openmediavault/engined/module/webdesk.inc"
-      - "./usr/share/openmediavault/mkconf/webdesk:/usr/share/openmediavault/mkconf/webdesk"
-      - "./var/www/openmediavault/images/webdesk:/var/www/openmediavault/images/webdesk"
+      #- "./var/service/webdesk:/var/www/openmediavault/js/omv/module/admin/service/webdesk"
+      #- "./usr/share/openmediavault/engined/rpc/webdesk.inc:/usr/share/openmediavault/engined/rpc/webdesk.inc"
+      #- "./usr/share/openmediavault/engined/module/webdesk.inc:/usr/share/openmediavault/engined/module/webdesk.inc"
+      #- "./usr/share/openmediavault/mkconf/webdesk:/usr/share/openmediavault/mkconf/webdesk"
+      #- "./var/www/openmediavault/images/webdesk:/var/www/openmediavault/images/webdesk"
       - "./bin:/var/www/bin"
      #environment:
     #  - AGENDA=/var/www/html/agenda
@@ -23,7 +23,7 @@ services:
      networks:
       default:
        aliases:
-        - "openmediavault.example.test"
+        - "openmediavault.plugin.test"
      #links:
       # for mysql container
       #- "db:db"
