@@ -5,16 +5,26 @@ services:
      build: ./build
      volumes:
      #On utilise la clef ssh, et config git du poste courant
-      #- "./var/service/webdesk:/var/www/openmediavault/js/omv/module/admin/service/webdesk"
-      #- "./usr/share/openmediavault/engined/rpc/webdesk.inc:/usr/share/openmediavault/engined/rpc/webdesk.inc"
-      #- "./usr/share/openmediavault/engined/module/webdesk.inc:/usr/share/openmediavault/engined/module/webdesk.inc"
-      #- "./usr/share/openmediavault/mkconf/webdesk:/usr/share/openmediavault/mkconf/webdesk"
-      #- "./var/www/openmediavault/images/webdesk:/var/www/openmediavault/images/webdesk"
+      - "./var/www/openmediavault/js/omv/module/admin/service/webdesk:/var/www/openmediavault/js/omv/module/admin/service/webdesk"
+      - "./var/www/openmediavault/js/omv/module/admin/diagnostic/log/plugin/WebDesk.js:/var/www/openmediavault/js/omv/module/admin/diagnostic/log/plugin/WebDesk.js"
+      - "./var/www/openmediavault/images/webdesk:/var/www/openmediavault/images/webdesk"
+      - "./usr/share/openmediavault/engined/inc/90webdesk.inc:/usr/share/openmediavault/engined/inc/90webdesk.inc"
+      - "./usr/share/openmediavault/engined/rpc/webdesk.inc:/usr/share/openmediavault/engined/rpc/webdesk.inc"
+      - "./usr/share/openmediavault/engined/module/webdesk.inc:/usr/share/openmediavault/engined/module/webdesk.inc"
+      - "./usr/share/openmediavault/locale/en_US/openmediavault-webdesk.po:/usr/share/openmediavault/locale/en_US/openmediavault-webdesk.po"
+      - "./usr/share/openmediavault/locale/fr/openmediavault-webdesk.po:/usr/share/openmediavault/locale/fr/openmediavault-webdesk.po"
+      - "./usr/share/openmediavault/locale/fr_FR/openmediavault-webdesk.po:/usr/share/openmediavault/locale/fr_FR/openmediavault-webdesk.po"
+      - "./usr/share/openmediavault/locale/openmediavault-webdesk.po:/usr/share/openmediavault/locale/openmediavault-webdesk.po"
+      - "./usr/share/openmediavault/datamodels/conf.service.webdesk.json:/usr/share/openmediavault/datamodels/conf.service.webdesk.json"
+      - "./usr/share/openmediavault/datamodels/conf.service.webdesk.share.json:/usr/share/openmediavault/datamodels/conf.service.webdesk.share.json"
+      - "./usr/share/openmediavault/datamodels/rpc.webdesk.json:/usr/share/openmediavault/datamodels/rpc.webdesk.json"
+      - "./usr/share/openmediavault/mkconf/webdesk:/usr/share/openmediavault/mkconf/webdesk"
+      - "./debian:/var/www/debian"
       - "./bin:/var/www/bin"
      #environment:
     #  - AGENDA=/var/www/html/agenda
      restart: always
-     working_dir: /var/www/bin
+     working_dir: /var/www/debian
      ports:
      - "0:80"
      - "0:22"

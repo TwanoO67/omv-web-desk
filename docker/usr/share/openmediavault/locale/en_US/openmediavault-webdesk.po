@@ -1,0 +1,141 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the openmediavault-webdesk package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-webdesk\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-25 17:38-0500\n"
+"PO-Revision-Date: 2017-09-19 20:47+0000\n"
+"Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
+"Language-Team: English (United States) (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-webdesk/language/en_US/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add media share"
+msgstr "Add media share"
+
+msgid "All Media"
+msgstr "All Media"
+
+msgid "All media"
+msgstr "All media"
+
+msgid "Audio"
+msgstr "Audio"
+
+msgid "Browse"
+msgstr "Browse"
+
+msgid "Component"
+msgstr "Component"
+
+msgid "Content Type"
+msgstr "Content Type"
+
+msgid "Content Type(s)"
+msgstr "Content Type(s)"
+
+msgid "WebDesk"
+msgstr "WebDesk"
+
+msgid "Date & Time"
+msgstr "Date & Time"
+
+msgid "Debug"
+msgstr "Debug"
+
+msgid "Edit media share"
+msgstr "Edit media share"
+
+msgid "Enable"
+msgstr "Enable"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Event"
+msgstr "Event"
+
+msgid "Extra options"
+msgstr "Extra options"
+
+msgid "Fatal"
+msgstr "Fatal"
+
+msgid "General settings"
+msgstr "General settings"
+
+msgid "Images"
+msgstr "Images"
+
+msgid "Info"
+msgstr "Info"
+
+msgid "Log Level"
+msgstr "Log Level"
+
+msgid "WebDesk"
+msgstr "WebDesk"
+
+msgid "WebDesk on OpenMediaVault"
+msgstr "WebDesk on OpenMediaVault"
+
+msgid "Music"
+msgstr "Music"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Off"
+msgstr "Off"
+
+msgid "Pictures"
+msgstr "Pictures"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Rescan"
+msgstr "Rescan"
+
+msgid "Root Container"
+msgstr "Root Container"
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Shared Folder"
+msgstr "Shared Folder"
+
+msgid "Shared folder containing media files"
+msgstr "Shared folder containing media files"
+
+msgid "Shares"
+msgstr "Shares"
+
+msgid "Standard"
+msgstr "Standard"
+
+msgid "Strict WebDesk"
+msgstr "Strict WebDesk"
+
+msgid "Strictly adhere to WebDesk standards."
+msgstr "Strictly adhere to WebDesk standards."
+
+msgid "TiVo support"
+msgstr "TiVo support"
+
+msgid "Video"
+msgstr "Video"
+
+msgid "Warn"
+msgstr "Warn"
+
+msgid "n/a"
+msgstr "n/a"

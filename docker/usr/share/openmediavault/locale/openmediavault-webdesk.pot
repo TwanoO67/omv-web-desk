@@ -1,0 +1,141 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the openmediavault-webdesk package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-webdesk\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-25 17:38-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Add media share"
+msgstr ""
+
+msgid "All Media"
+msgstr ""
+
+msgid "All media"
+msgstr ""
+
+msgid "Audio"
+msgstr ""
+
+msgid "Browse"
+msgstr ""
+
+msgid "Component"
+msgstr ""
+
+msgid "Content Type"
+msgstr ""
+
+msgid "Content Type(s)"
+msgstr ""
+
+msgid "WebDesk"
+msgstr ""
+
+msgid "Date & Time"
+msgstr ""
+
+msgid "Debug"
+msgstr ""
+
+msgid "Edit media share"
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "Event"
+msgstr ""
+
+msgid "Extra options"
+msgstr ""
+
+msgid "Fatal"
+msgstr ""
+
+msgid "General settings"
+msgstr ""
+
+msgid "Images"
+msgstr ""
+
+msgid "Info"
+msgstr ""
+
+msgid "Log Level"
+msgstr ""
+
+msgid "WebDesk"
+msgstr ""
+
+msgid "WebDesk on OpenMediaVault"
+msgstr ""
+
+msgid "Music"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Off"
+msgstr ""
+
+msgid "Pictures"
+msgstr ""
+
+msgid "Port"
+msgstr ""
+
+msgid "Rescan"
+msgstr ""
+
+msgid "Root Container"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Shared Folder"
+msgstr ""
+
+msgid "Shared folder containing media files"
+msgstr ""
+
+msgid "Shares"
+msgstr ""
+
+msgid "Standard"
+msgstr ""
+
+msgid "Strict WebDesk"
+msgstr ""
+
+msgid "Strictly adhere to WebDesk standards."
+msgstr ""
+
+msgid "TiVo support"
+msgstr ""
+
+msgid "Video"
+msgstr ""
+
+msgid "Warn"
+msgstr ""
+
+msgid "n/a"
+msgstr ""

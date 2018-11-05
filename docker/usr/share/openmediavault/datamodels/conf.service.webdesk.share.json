@@ -1,0 +1,24 @@
+{
+	"type": "config",
+	"id": "conf.service.webdesk.share",
+	"title": "WebDesk share",
+	"queryinfo": {
+		"xpath": "//services/webdesk/shares/share",
+		"iterable": true,
+		"idproperty": "uuid"
+	},
+	"properties": {
+		"uuid": {
+			"type": "string",
+			"format": "uuidv4"
+		},
+		"sharedfolderref": {
+			"type": "string",
+			"format": "uuidv4"
+		},
+		"mtype": {
+			"type": "string",
+			"default": ""
+		}
+	}
+}

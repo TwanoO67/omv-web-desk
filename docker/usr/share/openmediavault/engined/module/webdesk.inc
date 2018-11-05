@@ -1,118 +1,101 @@
 <?php
 
-require_once 'openmediavault/config.inc';
-require_once 'openmediavault/error.inc';
-require_once 'openmediavault/initscript.inc';
-require_once 'openmediavault/module.inc';
+/**
+ * Copyright (C) 2009-2013 Volker Theile <volker.theile@openmediavault.org>
+ * Copyright (C) 2013-2017 OpenMediaVault Plugin Developers
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
-class OMVModuleWebdesk extends OMVModuleServiceAbstract implements
-	OMVINotifyListener,
-	OMVIModuleServiceStatus
+class OMVModuleMiniDlna extends \OMV\Engine\Module\ServiceAbstract
+    implements \OMV\Engine\Notify\IListener, \OMV\Engine\Module\IServiceStatus
 {
-	/**
-	 * The main event message path.
-	 *
-	 * @var string
-	 */
-	private $eventMessagePath = 'org.openmediavault.services.webdesk';
+    public function getName()
+    {
+        return "webdesk";
+    }
 
-	/**
-	 * Get the base XPath of the service. This is a helper function to avoid
-	 * "magic numbers".
-	 *
-	 * @return string
-	 */
-	private function getXpath()
-	{
-		return '/config/services/webdesk';
-	}
+    public function applyConfig()
+    {
+        $cmd = new \OMV\System\Process("omv-mkconf", "webdesk");
+        $cmd->setRedirect2to1();
+        $cmd->execute();
+    }
 
-	/**
-	 * Get the module name.
-	 *
-	 * @return string
-	 */
-	public function getName()
-	{
-		return 'webdesk';
-	}
+    /*public function startService()
+    {
+        $db = \OMV\Config\Database::getInstance();
+        $object = $db->get("conf.service.webdesk");
+        if (TRUE !== $object->get("enable"))
+            return;
+        // Start this service and enable the unit file.
+        $systemCtl = new \OMV\System\SystemCtl("webdesk");
+        $systemCtl->enable(TRUE);
+    }
 
-	/**
-	 * Get the module status.
-	 *
-	 * @return array
-	 *
-	 * @throws OMVException
-	 */
-	public function getStatus()
-	{
-		global $xmlConfig;
+    public function stopService()
+    {
+        $systemCtl = new \OMV\System\SystemCtl("webdesk");
+        $systemCtl->disable(TRUE);
+    }*/
 
-		// Get the configuration object.
-		$object = $xmlConfig->get($this->getXpath());
+    public function getStatus()
+    {
+        $db = \OMV\Config\Database::getInstance();
+        $object = $db->get("conf.service.webdesk");
+        //$systemCtl = new \OMV\System\SystemCtl("webdesk");
+        return array(
+            "name" => $this->getName(),
+            "title" => gettext("WebDesk"),
+            "enabled" => $object->get("enable"),
+            "running" => false//$systemCtl->isActive()
+        );
+    }
 
-		if (is_null($object)) {
-			throw new OMVException(
-				OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-				$this->getXpath()
-			);
-		}
+    /*final public function onSharedFolder($type, $path, $object)
+    {
+        $db = \OMV\Config\Database::getInstance();
+        if (TRUE === $db->exists("conf.service.webdesk.share", [
+            "operator" => "stringEquals",
+            "arg0" => "sharedfolderref",
+            "arg1" => $object['uuid']
+        ])) {
+            $this->setDirty();
+        }
+    }*/
 
-		// Return the status of the service. This information is displayed
-		// under Diagnostics/Services.
-		return array(
-			'name' => $this->getName(),
-			'title' => gettext('Webdesk'),
-			'enabled' => boolval($object['enable']),
-			'running' => false
-		);
-	}
-
-	/**
-	 * Generate the configuration.
-	 *
-	 * @return void
-	 *
-	 * @throws OMVException
-	 */
-	public function applyConfig()
-	{
-		global $xmlConfig;
-
-		$cmd = sprintf('export LANG=C; omv-mkconf %s 2>&1', $this->getName());
-
-		if (0 !== $this->exec($cmd, $output)) {
-			throw new OMVException(
-				OMVErrorMsg::E_EXEC_FAILED,
-				$cmd,
-				implode(PHP_EOL, $output)
-			);
-		}
-	}
-
-	/**
-	 * Bind listeners.
-	 *
-	 * @param OMVNotifyDispatcher $dispatcher
-	 * @return void
-	 */
-	public function bindListeners(OMVNotifyDispatcher $dispatcher)
-	{
-		$moduleMgr = &OMVModuleMgr::getInstance();
-
-		// Add listeners here. The most common thing is to monitor configuration
-		// changes on the service. When the config is changed the module
-		// sets itself as dirty (as seen below). Setting a module as dirty
-		// makes the apply button appear in the web interface (which in turn
-		// calls the applyConfig function on each module with a dirty state).
-		$dispatcher->addListener(
-			OMV_NOTIFY_MODIFY,
-			$this->eventMessagePath,
-			[$this, 'setDirty']
-		);
-	}
+    public function bindListeners(\OMV\Engine\Notify\Dispatcher $dispatcher)
+    {
+        $dispatcher->addListener(
+            OMV_NOTIFY_MODIFY,
+            "org.openmediavault.conf.service.webdesk",
+            [ $this, "setDirty" ]
+        );
+        $dispatcher->addListener(
+            OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
+            "org.openmediavault.conf.service.webdesk.share",
+            [ $this, "setDirty" ]
+        );
+        /*$dispatcher->addListener(
+            OMV_NOTIFY_MODIFY,
+            "org.openmediavault.conf.system.sharedfolder",
+            [ $this, "onSharedFolder" ]
+        );
+        $dispatcher->addListener(
+            OMV_NOTIFY_MODIFY,
+            "org.openmediavault.conf.system.sharedfolder.privilege",
+            [ $this, "onSharedFolder" ]
+        );*/
+    }
 }
-
-// Register the module.
-$moduleMgr = &OMVModuleMgr::getInstance();
-$moduleMgr->registerModule(new OMVModuleWebdesk());
