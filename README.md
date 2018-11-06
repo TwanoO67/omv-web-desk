@@ -42,6 +42,14 @@ puis convertissez votre fichier .mov en gif avec "mov_to_git.sh"
 * cd openmediavault-webdesk
 * ./build.sh
 
+
+## Tester l'install d'un package debian
+* cd openmediavault-webdesk
+* docker-compose -f docker-compose-empty.yml up -d
+* ./enter
+* dpkg -i openmediavault-webdesk_X.X.X_all.deb
+
+
 ## Développement sous docker
 
 * choisir un port dans .env
@@ -53,6 +61,7 @@ puis convertissez votre fichier .mov en gif avec "mov_to_git.sh"
 Ensuite vous pouvez activer le plugin dans la section "WebDesk", et vous connecter à son interface.
 
 Basé sur le tuto: https://github.com/skyajal/diypluginguide3.x/blob/master/OMV3.xDIYPluginGuide.pdf
+
 
 ## Installation manuelle
 

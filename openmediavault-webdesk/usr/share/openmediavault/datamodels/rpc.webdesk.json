@@ -22,25 +22,30 @@
 	}
 },{
 	"type": "rpc",
-	"id": "rpc.webdesk.setshare",
+	"id": "rpc.webdesk.setlink",
 	"params": {
 		"type": "object",
 		"properties": {
-			"uuid": {
-				"type": "string",
-				"format": "uuidv4",
-				"required": true
-			},
-			"sharedfolderref": {
-				"type": "string",
-				"format": "uuidv4",
-				"required": true
-			},
-			"mtype": {
-			    "type": "string",
-			    "enum":[ "A", "P", "V", "" ],
-				"required": true
-			}
+      "id": {
+        "type": "string",
+        "required": true
+      },
+      "image": {
+        "type": "string",
+        "required": true
+      },
+      "title": {
+        "type": "string",
+        "required": false
+      },
+      "text": {
+        "type": "string",
+        "required": false
+      },
+      "iframe": {
+        "type": "string",
+        "required": false
+      }
 		}
 	}
 }]

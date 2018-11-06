@@ -28,16 +28,16 @@
 // require("js/omv/data/proxy/Rpc.js")
 // require("js/omv/form/field/SharedFolderComboBox.js")
 
-Ext.define("OMV.module.admin.service.webdesk.Share", {
+Ext.define("OMV.module.admin.service.webdesk.Link", {
     extend : "OMV.workspace.window.Form",
     uses   : [
-        "OMV.form.field.SharedFolderComboBox",
+        //"OMV.form.field.SharedFolderComboBox",
         "OMV.workspace.window.plugin.ConfigObject"
     ],
 
     rpcService   : "WebDesk",
-    rpcGetMethod : "getShare",
-    rpcSetMethod : "setShare",
+    rpcGetMethod : "getLink",
+    rpcSetMethod : "setLink",
     plugins      : [{
         ptype : "configobject"
     }],
@@ -45,33 +45,55 @@ Ext.define("OMV.module.admin.service.webdesk.Share", {
     getFormItems : function () {
         var me = this;
         return [{
-            xtype      : "sharedfoldercombo",
-            name       : "sharedfolderref",
-            fieldLabel : _("Shared Folder"),
-            readOnly   : (me.uuid !== OMV.UUID_UNDEFINED),
+            name: "id",
+            xtype: "textfield",
+            fieldLabel : _("Id"),
             plugins    : [{
-                ptype : "fieldinfo",
-                text  : _("Shared folder containing media files")
+              ptype : "fieldinfo",
+              text  : _("example: about")
             }]
-        },{
-            xtype         : "combo",
-            name          : "mtype",
-            fieldLabel    : _("Content Type"),
-            queryMode     : "local",
-            store : [
-                [ "A", _("Audio") ],
-                [ "P", _("Images") ],
-                [ "V", _("Video") ],
-                [ "", _("All media") ]
-            ],
-            editable      : false,
-            triggerAction : "all",
-            value         : ""
-        }];
+          },
+          {
+            name: "image",
+            xtype: "textfield",
+            fieldLabel : _("Image"),
+            plugins    : [{
+              ptype : "fieldinfo",
+              text  : _("example: /assets/flatjoy-circle-deviantart/Apple.png")
+            }]
+          },
+          {
+            name: "title",
+            xtype: "textfield",
+            fieldLabel : _("Title"),
+            plugins    : [{
+              ptype : "fieldinfo",
+              text  : _("example: Finder")
+            }]
+          },
+          {
+            name: "text",
+            xtype: "textfield",
+            fieldLabel : _("Text"),
+            plugins    : [{
+              ptype : "fieldinfo",
+              text  : _("example: empty if iframe")
+            }]
+          },
+          {
+            name: "iframe",
+            xtype: "textfield",
+            fieldLabel : _("Iframe"),
+            plugins    : [{
+              ptype : "fieldinfo",
+              text  : _("example: /elfinder/elfinder.html")
+            }]
+          }
+        ];
     }
 });
 
-Ext.define("OMV.module.admin.service.webdesk.Shares", {
+Ext.define("OMV.module.admin.service.webdesk.Links", {
     extend   : "OMV.workspace.grid.Panel",
     requires : [
         "OMV.Rpc",
@@ -80,42 +102,24 @@ Ext.define("OMV.module.admin.service.webdesk.Shares", {
         "OMV.data.proxy.Rpc"
     ],
     uses     : [
-        "OMV.module.admin.service.webdesk.Share"
+        "OMV.module.admin.service.webdesk.Link"
     ],
 
     hidePagingToolbar : false,
     stateful          : true,
-    stateId           : "9889057b-b2c0-4c48-a4c1-8c9b4fb54d7b",
+    stateId           : "9889057b-b2c0-4c48-a4c1-8c9b4fb54d7brandom",
     columns           : [{
-        xtype     : "textcolumn",
-        text      : _("Shared Folder"),
-        sortable  : true,
-        dataIndex : "sharedfoldername",
-        stateId   : "sharedfoldername"
+      xtype     : "textcolumn",
+      text      : _("Id"),
+      sortable  : true,
+      dataIndex : "id",
+      stateId   : "id"
     },{
-        xtype     : "textcolumn",
-        text      : _("Content Type(s)"),
-        sortable  : true,
-        dataIndex : "mtype",
-        stateId   : "mtype",
-        renderer  : function (value) {
-            var content;
-            switch (value) {
-            case 'A':
-                content = _("Audio");
-                break;
-            case 'P':
-                content = _("Images");
-                break;
-            case 'V':
-                content = _("Video");
-                break;
-            default:
-                content = _("All Media");
-                break;
-            }
-            return content;
-        }
+      xtype     : "textcolumn",
+      text      : _("Title"),
+      sortable  : true,
+      dataIndex : "title",
+      stateId   : "title"
     }],
 
     initComponent : function () {
@@ -124,18 +128,20 @@ Ext.define("OMV.module.admin.service.webdesk.Shares", {
             store : Ext.create("OMV.data.Store", {
                 autoLoad : true,
                 model    : OMV.data.Model.createImplicit({
-                    idProperty : "uuid",
+                    idProperty : "id",
                     fields     : [
-                        { name  : "uuid", type: "string" },
-                        { name  : "sharedfoldername", type: "string" },
-                        { name  : "mtype", type: "string" }
+                        { name  : "id", type: "string" },
+                        { name  : "image", type: "string" },
+                        { name  : "text", type: "string" },
+                        { name  : "title", type: "string" },
+                        { name  : "iframe", type: "string" }
                     ]
                 }),
                 proxy    : {
                     type    : "rpc",
                     rpcData : {
                         service : "WebDesk",
-                        method  : "getShareList"
+                        method  : "getLinkList"
                     }
                 }
             })
@@ -145,8 +151,8 @@ Ext.define("OMV.module.admin.service.webdesk.Shares", {
 
     onAddButton: function () {
         var me = this;
-        Ext.create("OMV.module.admin.service.webdesk.Share", {
-            title     : _("Add media share"),
+        Ext.create("OMV.module.admin.service.webdesk.Link", {
+            title     : _("Add link"),
             uuid      : OMV.UUID_UNDEFINED,
             listeners : {
                 scope  : me,
@@ -160,9 +166,9 @@ Ext.define("OMV.module.admin.service.webdesk.Shares", {
     onEditButton: function () {
         var me = this;
         var record = me.getSelected();
-        Ext.create("OMV.module.admin.service.webdesk.Share", {
-            title     : _("Edit media share"),
-            uuid      : record.get("uuid"),
+        Ext.create("OMV.module.admin.service.webdesk.Link", {
+            title     : _("Edit link"),
+            uuid      : record.get("id"),
             listeners : {
                 scope  : me,
                 submit : function () {
@@ -179,9 +185,9 @@ Ext.define("OMV.module.admin.service.webdesk.Shares", {
             callback : me.onDeletion,
             rpcData  : {
                 service : "WebDesk",
-                method  : "deleteShare",
+                method  : "deleteLink",
                 params  : {
-                    uuid: record.get("uuid")
+                    uuid: record.get("id")
                 }
             }
         });
@@ -189,9 +195,9 @@ Ext.define("OMV.module.admin.service.webdesk.Shares", {
 });
 
 OMV.WorkspaceManager.registerPanel({
-    id        : "shares",
+    id        : "links",
     path      : "/service/webdesk",
-    text      : _("Shares"),
+    text      : _("Links"),
     position  : 20,
-    className : "OMV.module.admin.service.webdesk.Shares"
+    className : "OMV.module.admin.service.webdesk.Links"
 });

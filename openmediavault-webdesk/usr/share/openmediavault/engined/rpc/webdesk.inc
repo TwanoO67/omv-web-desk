@@ -28,10 +28,10 @@ class OMVRpcServiceMiniDlna extends \OMV\Rpc\ServiceAbstract
     {
         $this->registerMethod("getSettings");
         $this->registerMethod("setSettings");
-        $this->registerMethod("getShareList");
-        $this->registerMethod("getShare");
-        $this->registerMethod("setShare");
-        $this->registerMethod("deleteShare");
+        $this->registerMethod("getLinkList");
+        $this->registerMethod("getLink");
+        $this->registerMethod("setLink");
+        $this->registerMethod("deleteLink");
         $this->registerMethod("doRescan");
     }
 
@@ -43,7 +43,7 @@ class OMVRpcServiceMiniDlna extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.webdesk");
         // Remove useless properties from the object.
-        $object->remove("shares");
+        $object->remove("links");
         return $object->getAssoc();
     }
 
@@ -59,12 +59,12 @@ class OMVRpcServiceMiniDlna extends \OMV\Rpc\ServiceAbstract
         $object->setAssoc($params);
         $db->set($object);
         // Remove useless properties from the object.
-        $object->remove("shares");
+        $object->remove("links");
         // Return the configuration object.
         return $object->getAssoc();
     }
 
-    public function getShareList($params, $context)
+    public function getLinkList($params, $context)
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
@@ -72,25 +72,15 @@ class OMVRpcServiceMiniDlna extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, "rpc.common.getlist");
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        $objects = $db->get("conf.service.webdesk.share");
-        // Add additional share informations.
+        $objects = $db->get("conf.service.webdesk.link");
+        // Add additional link informations.
         $objectsAssoc = [];
-        foreach ($objects as $objectk => &$objectv) {
-            // Add the new property 'sharedfoldername'.
-            $objectv->add("sharedfoldername", "string", gettext("n/a"));
-            // Get the shared folder configuration object.
-            $sfObject = $db->get("conf.system.sharedfolder",
-                $objectv->get("sharedfolderref"));
-            // Update the 'sharedfoldername' property.
-            $objectv->set("sharedfoldername", $sfObject->get("name"));
-            $objectsAssoc[] = $objectv->getAssoc();
-        }
         // Filter the result.
         return $this->applyFilter($objectsAssoc, $params['start'], $params['limit'],
             $params['sortfield'], $params['sortdir']);
     }
 
-    public function getShare($params, $context)
+    public function getLink($params, $context)
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
@@ -98,31 +88,31 @@ class OMVRpcServiceMiniDlna extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, "rpc.common.objectuuid");
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        return $db->getAssoc("conf.service.webdesk.share", $params['uuid']);
+        return $db->getAssoc("conf.service.webdesk.link", $params['id']);
     }
 
-    public function setShare($params, $context)
+    public function setLink($params, $context)
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, "rpc.webdesk.setshare");
+        $this->validateMethodParams($params, "rpc.webdesk.setlink");
         // Prepare the configuration object.
-        $object = new \OMV\Config\ConfigObject("conf.service.webdesk.share");
+        $object = new \OMV\Config\ConfigObject("conf.service.webdesk.link");
         $object->setAssoc($params);
         // Set the configuration object.
         $isNew = $object->isNew();
         $db = \OMV\Config\Database::getInstance();
         if (TRUE === $isNew) {
-            // Check uniqueness - Shared folder
-            $db->assertIsUnique($object, "sharedfolderref");
+            // Check uniqueness - Linkd folder
+            $db->assertIsUnique($object, "id");
         }
         $db->set($object);
         // Return the configuration object.
         return $object->getAssoc();
     }
 
-    public function deleteShare($params, $context)
+    public function deleteLink($params, $context)
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
@@ -130,7 +120,7 @@ class OMVRpcServiceMiniDlna extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, "rpc.common.objectuuid");
         // Delete the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        $object = $db->get("conf.service.webdesk.share", $params['uuid']);
+        $object = $db->get("conf.service.webdesk.link", $params['id']);
         $db->delete($object);
         // Return the deleted configuration object.
         return $object->getAssoc();

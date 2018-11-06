@@ -21,23 +21,27 @@
 			"maximum": 65535,
 			"default": 8200
 		},
-		"shares": {
+		"links": {
 			"type": "object",
 			"properties": {
-				"share": {
+				"link": {
 					"type": "array",
 					"items": {
 						"type": "object",
 						"properties": {
-							"uuid": {
-								"type": "string",
-								"format": "uuidv4"
+              "id": {
+								"type": "string"
 							},
-							"sharedfolderref": {
-								"type": "string",
-								"format": "uuidv4"
+              "image": {
+								"type": "string"
 							},
-							"mtype": {
+              "title": {
+								"type": "string"
+							},
+              "text": {
+								"type": "string"
+							},
+              "iframe": {
 								"type": "string"
 							}
 						}

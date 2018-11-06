@@ -36,7 +36,7 @@ case "$1" in
             omv_config_add_key "${SERVICE_XPATH}" "enable" "0"
             omv_config_add_key "${SERVICE_XPATH}" "name" "WebDesk for OpenMediaVault"
             omv_config_add_key "${SERVICE_XPATH}" "port" "90"
-            omv_config_add_node "${SERVICE_XPATH}" "shares"
+            omv_config_add_node "${SERVICE_XPATH}" "links"
         fi
 
         # Activate package triggers. These triggers are only set during the

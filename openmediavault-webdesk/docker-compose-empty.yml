@@ -1,0 +1,18 @@
+version: '2.0'
+services:
+  omv:
+     container_name: omv
+     build: ./build
+     volumes:
+      - "..:/var/www/test"
+     restart: always
+     working_dir: /var/www/test
+     ports:
+     - "0:80"
+     - "0:22"
+     - "0:90"
+     - "0:3000"
+     networks:
+      default:
+       aliases:
+        - "openmediavault.plugin.test"

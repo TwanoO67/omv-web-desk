@@ -15,7 +15,7 @@ services:
       - "./usr/share/openmediavault/locale/fr_FR/openmediavault-webdesk.po:/usr/share/openmediavault/locale/fr_FR/openmediavault-webdesk.po"
       - "./usr/share/openmediavault/locale/openmediavault-webdesk.po:/usr/share/openmediavault/locale/openmediavault-webdesk.po"
       - "./usr/share/openmediavault/datamodels/conf.service.webdesk.json:/usr/share/openmediavault/datamodels/conf.service.webdesk.json"
-      - "./usr/share/openmediavault/datamodels/conf.service.webdesk.share.json:/usr/share/openmediavault/datamodels/conf.service.webdesk.share.json"
+      - "./usr/share/openmediavault/datamodels/conf.service.webdesk.link.json:/usr/share/openmediavault/datamodels/conf.service.webdesk.link.json"
       - "./usr/share/openmediavault/datamodels/rpc.webdesk.json:/usr/share/openmediavault/datamodels/rpc.webdesk.json"
       - "./usr/share/openmediavault/mkconf/webdesk:/usr/share/openmediavault/mkconf/webdesk"
       - "./etc/webdesk:/etc/webdesk"
