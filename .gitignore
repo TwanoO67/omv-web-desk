@@ -6,6 +6,7 @@
 
 # compiled output
 /dist
+/openmediavault-webdesk/etc/webdesk
 /tmp
 
 # dependencies
@@ -42,3 +43,8 @@ Thumbs.db
 *.build
 *.buildinfo
 *.changes
+openmediavault-webdesk/debian/*.log
+openmediavault-webdesk/debian/*.substvars
+openmediavault-webdesk/debian/.debhelper
+openmediavault-webdesk/debian/openmediavault-webdesk
+openmediavault-webdesk/debian/files

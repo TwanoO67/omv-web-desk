@@ -43,7 +43,7 @@ then
     rm webdesk.tar.gz
     echo "==> unzipping project" >> $INSTALL_LOG
   else
-    echo "Install started from existing dir" > $INSTALL_LOG
+    echo "Install started from existing dir (debian package)" > $INSTALL_LOG
   fi
 
   echo "==> Creating NGINX Config file" >> $INSTALL_LOG
@@ -163,7 +163,7 @@ else
     rm /etc/nginx/sites-available/$CONF_NAME
   fi
 
-  #suprresion des conf
+  #supression des conf
   if [ -f $OMV_NGINX_CUSTOM_CONF ]
   then
     rm $OMV_NGINX_CUSTOM_CONF
@@ -175,10 +175,10 @@ else
 
 
   ##suppression du projet
-  if [ -d $PROJECT_PATH ]
-  then
-    rm -rf $PROJECT_PATH
-  fi
+  #if [ -d $PROJECT_PATH ]
+  #then
+  #  rm -rf $PROJECT_PATH
+  #fi
 
   #suppression du user si existant
   if [ `id -u $USERNAME 2>/dev/null || echo -1` -ge 0 ]; then

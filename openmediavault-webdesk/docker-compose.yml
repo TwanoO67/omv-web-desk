@@ -18,6 +18,7 @@ services:
       - "./usr/share/openmediavault/datamodels/conf.service.webdesk.share.json:/usr/share/openmediavault/datamodels/conf.service.webdesk.share.json"
       - "./usr/share/openmediavault/datamodels/rpc.webdesk.json:/usr/share/openmediavault/datamodels/rpc.webdesk.json"
       - "./usr/share/openmediavault/mkconf/webdesk:/usr/share/openmediavault/mkconf/webdesk"
+      - "./etc/webdesk:/etc/webdesk"
       - "./debian:/var/www/debian"
       - "./bin:/var/www/bin"
      restart: always

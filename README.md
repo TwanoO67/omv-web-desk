@@ -36,6 +36,12 @@ Elle permettra de mettre rapidement les fichiers du nas à disposition.
 filmer votre démo avec capture de mac
 puis convertissez votre fichier .mov en gif avec "mov_to_git.sh"
 
+## Générer un fichier debian package
+
+* npm run build
+* cd openmediavault-webdesk
+* ./build.sh
+
 ## Développement sous docker
 
 * choisir un port dans .env
