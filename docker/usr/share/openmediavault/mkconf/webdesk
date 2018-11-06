@@ -36,7 +36,7 @@ then
   if [ ! -d $PROJECT_PATH ]
   then
     mkdir -p $PROJECT_PATH
-    echo "Install started from scratch" > $INSTALL_LOG
+    echo "Install from latest version" > $INSTALL_LOG
     cd $PROJECT_PATH
     wget http://dl.weberantoine.fr/download.php?file=dist-omv-web-desk.tar.gz -O webdesk.tar.gz
     tar -zxvf webdesk.tar.gz
@@ -68,40 +68,81 @@ then
   }
   "  > $OMV_NGINX_CUSTOM_CONF
 
-  echo "==> Creating linux group webdesk" >> $INSTALL_LOG
+  if [ $(getent group $GROUPNAME) ]; then
+    echo "==> Group '$GROUPNAME' Already Exist" >> $INSTALL_LOG
+  else
+    echo "==> Creating linux group webdesk" >> $INSTALL_LOG
+    groupadd $GROUPNAME
+  fi
 
-  getent group $GROUPNAME || groupadd $GROUPNAME
+  if [ `id -u $USERNAME 2>/dev/null || echo -1` -ge 0 ]; then
+    echo "==> Account '$USERNAME' Already Exist" >> $INSTALL_LOG
+  else
+    echo "==> Creating linux user webdesk" >> $INSTALL_LOG
 
-  echo "==> Creating linux user webdesk" >> $INSTALL_LOG
+    useradd $USERNAME -g $GROUPNAME
 
-  useradd $USERNAME -g $GROUPNAME
+    echo "==> add user to needed groups" >> $INSTALL_LOG
 
-  echo "==> add user to needed groups" >> $INSTALL_LOG
-
-  usermod -a -G webdesk $USERNAME
-  usermod -a -G users $USERNAME
-  usermod -a -G www-data $USERNAME
-  #usermod -a -G openmediavault $USERNAME
-  usermod -a -G openmediavault-config $USERNAME
-  usermod -a -G openmediavault-engined $USERNAME
-  usermod -a -G openmediavault-webgui $USERNAME
+    usermod -a -G users $USERNAME
+    usermod -a -G www-data $USERNAME
+    usermod -a -G openmediavault-config $USERNAME
+    usermod -a -G openmediavault-engined $USERNAME
+    usermod -a -G openmediavault-webgui $USERNAME
+  fi
 
   echo "==> Creating PHP-FPM Config file" >> $INSTALL_LOG
 
-  echo "
-  [webdesk]
-  user = $USERNAME
-  group = $GROUPNAME
-  listen = /var/run/php-omv-webdesk.sock
-  listen.owner = www-data
-  listen.group = www-data
-  pm = dynamic
-  pm.max_children = 5
-  pm.start_servers = 2
-  pm.min_spare_servers = 1
-  pm.max_spare_servers = 3
-  chdir = /
-  " > $FPM_CUSTOM_CONF
+  echo "[webdesk]
+user = $USERNAME
+group = $GROUPNAME
+
+listen = /var/run/php-omv-webdesk.sock
+listen.owner = www-data
+listen.group = www-data
+listen.mode = 0600
+
+pm = ondemand
+pm.max_children = 25
+pm.process_idle_timeout = 10s
+
+chdir = /
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; webdesk php.ini settings ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Paths and Directories
+php_value[include_path] = \".:/usr/share/php:/var/www/openmediavault\"
+
+; Pam Authentication Support (see /etc/pam.d)
+php_value[pam.servicename] = "$USERNAME";
+
+; Maximum allowed size for uploaded files.
+; http://php.net/upload-max-filesize
+php_value[upload_max_filesize] = 25M
+
+; Maximum size of POST data that PHP will accept.
+; http://php.net/post-max-size
+php_value[post_max_size] = 25M
+
+; Do not expose to the world that PHP is installed on the server.
+; http://php.net/expose-php
+php_value[expose_php] = Off
+
+; Name of the session (used as cookie name).
+; http://php.net/session.name
+php_value[session.name] = X-OPENMEDIAVAULT-WEBDESK-SESSIONID
+
+; Default timeout for socket based streams (seconds)
+; http://php.net/default-socket-timeout
+php_value[default_socket_timeout] = 90
+
+; Maximum execution time of each script, in seconds
+; http://php.net/max-execution-time
+; Note: This directive is hardcoded to 0 for the CLI SAPI
+php_value[max_execution_time] = 90
+" > $FPM_CUSTOM_CONF
 
   if [ ! -f /etc/nginx/sites-available/$CONF_NAME ]
   then
@@ -112,7 +153,7 @@ then
   echo "==> Restaring nginx and php-fpm" >> $INSTALL_LOG
 
   service nginx restart
-  service php-fpm restart
+  service php7.0-fpm restart
 
   echo "restart" >> $INSTALL_LOG
 else
@@ -140,11 +181,15 @@ else
   fi
 
   #suppression du user si existant
-  deluser $USERNAME
-  delgroup $GROUPNAME
+  if [ `id -u $USERNAME 2>/dev/null || echo -1` -ge 0 ]; then
+    deluser $USERNAME
+  fi
+  if [ $(getent group $GROUPNAME) ]; then
+    delgroup $GROUPNAME
+  fi
 
   service nginx restart
-  service php-fpm restart
+  service php7.0-fpm restart
 
 fi
 
