@@ -1,11 +1,11 @@
 {
   "name": "webdesk",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port=4300",
-    "build": "ng build --prod && cp -r omv/* dist/",
+    "build": "ng build --prod && cp -r api/* dist/ && rm -rf  cp -r ./openmediavault-webdesk/etc/webdesk/* && cp -r ./elfinder-dist ./openmediavault-webdesk/etc/webdesk/elfinder && cp -r ./dist/* ./openmediavault-webdesk/etc/webdesk",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -26,7 +26,8 @@
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.1",
+    "@angular-devkit/core": "^7.0.4",
+    "@angular/cli": "1.6.3",
     "@angular/compiler-cli": "^4.0.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",

@@ -35,3 +35,10 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+
+#Binary
+*.dsc
+*.tar.xz
+*.build
+*.buildinfo
+*.changes

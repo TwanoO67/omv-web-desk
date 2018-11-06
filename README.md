@@ -12,6 +12,7 @@ It looks like a Desktop UI, where your user would have some "App" providing easy
 * Iframes to your plugins web-view (done)
 * Photo Gallery (work in progress)
 * Music player (todo)
+* Simple Photo Sharing/UploadBox (todo)
 
 Technically it's based on OMV (for the php part), Angular (as TS framework), Ventus (as Desktop manager)
 
@@ -43,7 +44,9 @@ puis convertissez votre fichier .mov en gif avec "mov_to_git.sh"
 * `/bin/sh postinst configure`
 * puis se connecter a localhost avec admin/openmediavault
 
-Basé sur le tuto: https://forum.openmediavault.org/index.php/Thread/5600-DIY-Plugin-Development/
+Ensuite vous pouvez activer le plugin dans la section "WebDesk", et vous connecter à son interface.
+
+Basé sur le tuto: https://github.com/skyajal/diypluginguide3.x/blob/master/OMV3.xDIYPluginGuide.pdf
 
 ## Installation manuelle
 
