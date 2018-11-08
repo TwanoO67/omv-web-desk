@@ -18,6 +18,8 @@ services:
       - "./usr/share/openmediavault/datamodels/conf.service.webdesk.link.json:/usr/share/openmediavault/datamodels/conf.service.webdesk.link.json"
       - "./usr/share/openmediavault/datamodels/rpc.webdesk.json:/usr/share/openmediavault/datamodels/rpc.webdesk.json"
       - "./usr/share/openmediavault/mkconf/webdesk:/usr/share/openmediavault/mkconf/webdesk"
+      - "./usr/share/openmediavault/mkconf/nginx.d/90-webdesk:/usr/share/openmediavault/mkconf/nginx.d/90-webdesk"
+      - "./usr/share/openmediavault/mkconf/phpfpm.d/90-webdesk:/usr/share/openmediavault/mkconf/phpfpm.d/90-webdesk"
       - "./etc/webdesk:/etc/webdesk"
       - "./debian:/var/www/debian"
       - "./bin:/var/www/bin"

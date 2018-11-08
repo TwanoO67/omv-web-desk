@@ -29,6 +29,9 @@ case "$1" in
     configure)
         SERVICE_XPATH_NAME="webdesk"
         SERVICE_XPATH="/config/services/${SERVICE_XPATH_NAME}"
+        INSTALL_LOG="/etc/webdesk/webdesk_setup_log"
+        USERNAME="webdesk"
+        GROUPNAME="webdesk"
 
         # Add the default configuration
         if ! omv_config_exists "${SERVICE_XPATH}"; then
@@ -38,6 +41,30 @@ case "$1" in
             omv_config_add_key "${SERVICE_XPATH}" "port" "90"
             omv_config_add_node "${SERVICE_XPATH}" "links"
         fi
+
+        if [ $(getent group $GROUPNAME) ]; then
+          echo "==> Group '$GROUPNAME' Already Exist" >> $INSTALL_LOG
+        else
+          echo "==> Creating linux group webdesk" >> $INSTALL_LOG
+          groupadd $GROUPNAME
+        fi
+
+        if [ `id -u $USERNAME 2>/dev/null || echo -1` -ge 0 ]; then
+          echo "==> Account '$USERNAME' Already Exist" >> $INSTALL_LOG
+        else
+          echo "==> Creating linux user webdesk" >> $INSTALL_LOG
+
+          useradd $USERNAME -g $GROUPNAME
+
+          echo "==> add user to needed groups" >> $INSTALL_LOG
+
+          usermod -a -G users $USERNAME
+          usermod -a -G www-data $USERNAME
+          usermod -a -G openmediavault-config $USERNAME
+          usermod -a -G openmediavault-engined $USERNAME
+          usermod -a -G openmediavault-webgui $USERNAME
+        fi
+
 
         # Activate package triggers. These triggers are only set during the
         # package installation.

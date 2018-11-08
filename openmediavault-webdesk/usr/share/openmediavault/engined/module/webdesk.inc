@@ -18,7 +18,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class OMVModuleMiniDlna extends \OMV\Engine\Module\ServiceAbstract
+class OMVModuleWebDesk extends \OMV\Engine\Module\ServiceAbstract
     implements \OMV\Engine\Notify\IListener, \OMV\Engine\Module\IServiceStatus
 {
     public function getName()
@@ -28,7 +28,11 @@ class OMVModuleMiniDlna extends \OMV\Engine\Module\ServiceAbstract
 
     public function applyConfig()
     {
-        $cmd = new \OMV\System\Process("omv-mkconf", "webdesk");
+        $cmd = new \OMV\System\Process("omv-mkconf", "phpfpm.d/90-webdesk");
+        $cmd->setRedirect2to1();
+        $cmd->execute();
+
+        $cmd = new \OMV\System\Process("omv-mkconf", "nginx.d/90-webdesk");
         $cmd->setRedirect2to1();
         $cmd->execute();
     }

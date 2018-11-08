@@ -32,6 +32,14 @@ case "$1" in
         if omv_config_exists ${SERVICE_XPATH}; then
             omv_config_delete ${SERVICE_XPATH}
         fi
+
+        #suppression du user si existant
+        if [ `id -u $USERNAME 2>/dev/null || echo -1` -ge 0 ]; then
+          deluser $USERNAME
+        fi
+        if [ $(getent group $GROUPNAME) ]; then
+          delgroup $GROUPNAME
+        fi
     ;;
 
     remove)
