@@ -29,7 +29,7 @@
 					"items": {
 						"type": "object",
 						"properties": {
-              "id": {
+              "uuid": {
 								"type": "string"
 							},
               "image": {

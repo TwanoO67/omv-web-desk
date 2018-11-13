@@ -44,15 +44,7 @@ Ext.define("OMV.module.admin.service.webdesk.Link", {
 
     getFormItems : function () {
         var me = this;
-        return [{
-            name: "id",
-            xtype: "textfield",
-            fieldLabel : _("Id"),
-            plugins    : [{
-              ptype : "fieldinfo",
-              text  : _("example: about")
-            }]
-          },
+        return [
           {
             name: "image",
             xtype: "textfield",
@@ -110,10 +102,10 @@ Ext.define("OMV.module.admin.service.webdesk.Links", {
     stateId           : "9889057b-b2c0-4c48-a4c1-8c9b4fb54d7brandom",
     columns           : [{
       xtype     : "textcolumn",
-      text      : _("Id"),
+      text      : _("Image"),
       sortable  : true,
-      dataIndex : "id",
-      stateId   : "id"
+      dataIndex : "image",
+      stateId   : "image"
     },{
       xtype     : "textcolumn",
       text      : _("Title"),
@@ -128,9 +120,9 @@ Ext.define("OMV.module.admin.service.webdesk.Links", {
             store : Ext.create("OMV.data.Store", {
                 autoLoad : true,
                 model    : OMV.data.Model.createImplicit({
-                    idProperty : "id",
+                    idProperty : "uuid",
                     fields     : [
-                        { name  : "id", type: "string" },
+                        { name  : "uuid", type: "string" },
                         { name  : "image", type: "string" },
                         { name  : "text", type: "string" },
                         { name  : "title", type: "string" },
@@ -168,7 +160,7 @@ Ext.define("OMV.module.admin.service.webdesk.Links", {
         var record = me.getSelected();
         Ext.create("OMV.module.admin.service.webdesk.Link", {
             title     : _("Edit link"),
-            uuid      : record.get("id"),
+            uuid      : record.get("uuid"),
             listeners : {
                 scope  : me,
                 submit : function () {
@@ -187,7 +179,7 @@ Ext.define("OMV.module.admin.service.webdesk.Links", {
                 service : "WebDesk",
                 method  : "deleteLink",
                 params  : {
-                    uuid: record.get("id")
+                    uuid: record.get("uuid")
                 }
             }
         });

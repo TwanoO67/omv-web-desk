@@ -75,9 +75,19 @@ class OMVRpcServiceMiniDlna extends \OMV\Rpc\ServiceAbstract
         $objects = $db->get("conf.service.webdesk.link");
         // Add additional link informations.
         $objectsAssoc = [];
-        // Filter the result.
-        return $this->applyFilter($objectsAssoc, $params['start'], $params['limit'],
-            $params['sortfield'], $params['sortdir']);
+        foreach ($objects as $objectk => &$objectv) {
+          // Add the new property 'sharedfoldername'.
+          /*$objectv->add("sharedfoldername", "string", gettext("n/a"));
+          // Get the shared folder configuration object.
+          $sfObject = $db->get("conf.system.sharedfolder",
+              $objectv->get("sharedfolderref"));
+          // Update the 'sharedfoldername' property.
+          $objectv->set("sharedfoldername", $sfObject->get("name"));*/
+          $objectsAssoc[] = $objectv->getAssoc();
+      }
+      // Filter the result.
+      return $this->applyFilter($objectsAssoc, $params['start'], $params['limit'],
+          $params['sortfield'], $params['sortdir']);
     }
 
     public function getLink($params, $context)
@@ -88,7 +98,7 @@ class OMVRpcServiceMiniDlna extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, "rpc.common.objectuuid");
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        return $db->getAssoc("conf.service.webdesk.link", $params['id']);
+        return $db->getAssoc("conf.service.webdesk.link", $params['uuid']);
     }
 
     public function setLink($params, $context)
@@ -103,10 +113,10 @@ class OMVRpcServiceMiniDlna extends \OMV\Rpc\ServiceAbstract
         // Set the configuration object.
         $isNew = $object->isNew();
         $db = \OMV\Config\Database::getInstance();
-        if (TRUE === $isNew) {
+        /*if (TRUE === $isNew) {
             // Check uniqueness - Linkd folder
-            $db->assertIsUnique($object, "id");
-        }
+            $db->assertIsUnique($object, "uuid");
+        }*/
         $db->set($object);
         // Return the configuration object.
         return $object->getAssoc();
@@ -120,7 +130,7 @@ class OMVRpcServiceMiniDlna extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, "rpc.common.objectuuid");
         // Delete the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        $object = $db->get("conf.service.webdesk.link", $params['id']);
+        $object = $db->get("conf.service.webdesk.link", $params['uuid']);
         $db->delete($object);
         // Return the deleted configuration object.
         return $object->getAssoc();

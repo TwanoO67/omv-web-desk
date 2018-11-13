@@ -1,0 +1,87 @@
+#!/bin/sh
+
+set -e
+
+. /etc/default/openmediavault
+. /usr/share/openmediavault/scripts/helper-functions
+
+SERVICE_XPATH_NAME="webdesk"
+OMV_SERVICE_XPATH="/config/services/$SERVICE_XPATH_NAME"
+OMV_SERVICE_CONF="/tmp/$SERVICE_XPATH_NAME.conf"
+
+#Récupération des configs
+PORT=`omv_config_get "${OMV_SERVICE_XPATH}/port"`
+ENABLE=`omv_config_get "${OMV_SERVICE_XPATH}/enable"`
+
+CONF_NAME="webdesk.conf"
+OMV_NGINX_CUSTOM_CONF="/etc/nginx/conf.d/$CONF_NAME"
+
+PROJECT_PATH="/etc/webdesk"
+INSTALL_LOG="/etc/webdesk/webdesk_setup_log"
+
+
+
+if [ $ENABLE -eq 1 ]
+then
+
+  #here we should verify if the port has change, if not so, it's not necessary to restart nginx etc..
+
+  echo "==> Creating NGINX Config file" >> $INSTALL_LOG
+
+  #création ou update de la conf vost nginx
+  echo "
+  server {
+      listen $PORT;
+      root $PROJECT_PATH;
+      index index.php;
+      location ~ \.php$ {
+        try_files \$uri =404;
+        fastcgi_split_path_info ^(.+?\.php)(/.+)$;
+        fastcgi_pass unix:/var/run/php-omv-webdesk.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
+        include /etc/nginx/fastcgi_params;
+      }
+      access_log /var/log/nginx/webdesk-access.log;
+      error_log  /var/log/nginx/webdesk-error.log;
+      large_client_header_buffers 4 8k;
+  }
+  "  > $OMV_NGINX_CUSTOM_CONF
+
+
+  if [ ! -f /etc/nginx/sites-available/$CONF_NAME ]
+  then
+    echo "==> Link NGINX Config in sites-available" >> $INSTALL_LOG
+    ln -s $OMV_NGINX_CUSTOM_CONF /etc/nginx/sites-available/$CONF_NAME
+  fi
+
+  echo "==> Restaring nginx " >> $INSTALL_LOG
+
+  service nginx restart
+
+else
+  didsomething=0
+
+  #supression des conf
+  if [ -f $OMV_NGINX_CUSTOM_CONF ]
+  then
+    rm $OMV_NGINX_CUSTOM_CONF
+    didsomething=1
+  fi
+
+  ##supression du vhost
+  if [ -f /etc/nginx/sites-available/$CONF_NAME ]
+  then
+    rm /etc/nginx/sites-available/$CONF_NAME
+    didsomething=1
+  fi
+
+  if [ $didsomething -eq 1 ]
+  then
+    service nginx restart
+  fi
+
+fi
+
+
+exit 0

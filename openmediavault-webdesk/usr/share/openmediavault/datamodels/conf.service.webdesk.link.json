@@ -8,7 +8,7 @@
 		"idproperty": "uuid"
 	},
 	"properties": {
-    "id": {
+    "uuid": {
       "type": "string"
     },
     "image": {
