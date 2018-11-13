@@ -3,7 +3,7 @@ sudo: required
 cache: yarn
 language: node_js
 node_js:
-  - "7"
+  - "10"
 os:
   - linux
 env:
@@ -18,17 +18,17 @@ before_script:
 before_install:
   - sudo apt-get install -y zip unzip
 install:
-  - yarn
+  - npm install
 script:
 # verification de la syntaxe
-  - yarn run lint
+  - npm run lint
 # compilation du projet
-  - yarn run build
+  - npm run build
 # récuperation de elfinder
-  - curl -o elfinder.zip https://codeload.github.com/Studio-42/elFinder/zip/2.1.23
+  - curl -o elfinder.zip https://codeload.github.com/Studio-42/elFinder/zip/2.1.42
   - mkdir elfinder
   - unzip -d elfinder elfinder.zip
-  - mv elfinder/elFinder-2.1.23 elfinder/elfinder
+  - mv elfinder/elFinder-2.1.42 elfinder/elfinder
 # on construit une release
   - mkdir release
   - cp -r elfinder/elfinder release/
