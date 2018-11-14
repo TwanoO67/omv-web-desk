@@ -68,8 +68,6 @@ class OMVRpcServiceWebDesk extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
-        // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, "rpc.common.getlist");
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $objects = $db->get("conf.service.webdesk.link");

@@ -40,19 +40,164 @@ if( isset( $_POST['username'] ) && isset($_POST['password'] ) ){
 	$params = array(
 		"username" => $_POST['username'],
 		"password" => $_POST['password']
-	);
+  );
 
-	$object = \OMV\Rpc\Rpc::call("UserMgmt", "authUser", $params, ['username' => 'admin', 'role' => OMV_ROLE_ADMINISTRATOR], \OMV\Rpc\Rpc::MODE_REMOTE, TRUE);
+  $context = ['username' => 'admin', 'role' => OMV_ROLE_ADMINISTRATOR];
+
+	$object = \OMV\Rpc\Rpc::call("UserMgmt", "authUser", $params, $context , \OMV\Rpc\Rpc::MODE_REMOTE, TRUE);
 		if (!is_null($object) && (TRUE === $object['authenticated'])) {
 			if ( ! $session->isAuthenticated() ){
 				// Initialize session.
 				$role = ($params['username'] === "admin") ? OMV_ROLE_ADMINISTRATOR : OMV_ROLE_USER;
 				$session->initialize($params['username'], $role);
 				$session->commit();
-			}
-		}
+      }
+
+      //construction de la config
+      $str = buildConfig($context);
+      file_put_contents('/etc/webdesk/webdesk_config.js',$str);
+
+    }
 		echo json_encode($object);
 }
 else{
 	echo "{'error':'No login information sent.'}";
 }
+
+/*
+  Construction de la config
+*/
+
+function buildConfig($context) {
+  return 'WEBDESK_CONFIG = {
+    "iconWidth": 100,
+    "navbar" : '.buildNavBar($context).',
+    "dock" : '.buildDock($context).'
+  }';
+};
+
+function buildNavBar($context) {
+  return '[
+    {
+      "label": "User",
+      "submenu":[{
+        "label": "Disconnect",
+        "link":"/login/logout.php"
+      }]
+    },
+    {
+      "label": "File",
+      "submenu": [
+        {"label": "New Window"},
+        {"label": "New File"},
+        {"label": "Save As"},
+        {"label": "Save All"},
+        {"label": "Close"},
+        {"label": "Close All"}
+      ]
+    },
+    {
+      "label": "Edit",
+      "submenu": [
+        {"label": "New Window"},
+        {"label": "New File"}
+      ]
+    },
+    {
+      "label": "View",
+      "submenu": [
+        {"label": "Close"},
+        {"label": "Close All"}
+      ]
+    }
+  ]';
+};
+
+function buildDock($context) {
+  $links = \OMV\Rpc\Rpc::call("WebDesk", "getLinkList", [], $context , \OMV\Rpc\Rpc::MODE_REMOTE, TRUE);
+
+  $prep = [];
+
+  foreach($links['data'] as $link){
+    //ajout des champs necessaires
+    $link["opened"] = false;
+    $link["selected"] = false;
+    $ref["selected"] = false;
+
+    $prep[] = $link;
+  }
+
+  return json_encode([
+    "default" => [
+      [
+        "id" => "about",
+        "image"=> "/assets/flatjoy-circle-deviantart/Apple.png",
+        "title"=> "Présentation",
+        "text"=> "Bienvenue, sur l\'interface de gestion de Bureau virtuel. N\'oubliez pas de changer les url d\'iframe et de configurer vos propres icones",
+        "opened"=> false,
+        "selected"=> false,
+        "ref"=> null
+      ],
+      [
+        "id"=> "elfinder",
+        "image"=> "/assets/flatjoy-circle-deviantart/Folder%20Files.png",
+        "iframe"=> "/elfinder/elfinder.html",
+        "title"=> "Finder"
+      ]
+      ],
+    $_POST['username'] => $prep
+    ], JSON_PRETTY_PRINT );
+
+  /*return '{
+    "username": [
+      {
+        "id": "about",
+        "image": "/assets/flatjoy-circle-deviantart/Apple.png",
+        "title": "Présentation",
+        "text": " TEST with your username",
+        "opened": false,
+        "selected": false,
+        "ref": null
+      }
+    ],
+    "default" : [
+      {
+        "id": "about",
+        "image": "/assets/flatjoy-circle-deviantart/Apple.png",
+        "title": "Présentation",
+        "text": "Bienvenue, sur l\'interface de gestion de Bureau virtuel. N\'oubliez pas de changer les url d\'iframe et de configurer vos propres icones",
+        "opened": false,
+        "selected": false,
+        "ref": null
+      },
+      {
+        "id": "elfinder",
+        "image": "/assets/flatjoy-circle-deviantart/Folder%20Files.png",
+        "iframe": "/elfinder/elfinder.html",
+        "title": "Finder"
+      },
+      {
+        "id": "omv",
+        "image": "/assets/flatjoy-circle-deviantart/Chip.png",
+        "iframe": "http://your-omv-ip/",
+        "title": "OpenMediaVault",
+        "opened": false,
+        "selected": false,
+        "ref": null
+      },
+      {
+        "id": "network",
+        "image": "/assets/flatjoy-circle-deviantart/Devices.png",
+        "iframe": "http://your-router",
+        "title": "Réseau"
+      },
+      {
+        "id": "sickrage",
+        "image": "/assets/flatjoy-circle-deviantart/Cone.png",
+        "iframe": "http://your-sickrage-install/",
+        "title": "SickRage"
+      }
+    ]
+  }';*/
+};
+

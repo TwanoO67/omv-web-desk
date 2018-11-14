@@ -11,8 +11,8 @@
 	$session->start();
 
 	if ($session->isAuthenticated() && !$session->isTimeout()) {
-		echo "<script> WEBDESK_CONFIG['username'] = '".$session->getUsername()."'; </script>";
-		require("./index.html");
+    require("./index.html");
+    echo "<script> WEBDESK_CONFIG['username'] = '".$session->getUsername()."'; </script>";
 	}
 	else{
 
