@@ -115,7 +115,7 @@
 			'cmdhome'      : 'Inici',
 			'cmdinfo'      : 'Obté informació',
 			'cmdmkdir'     : 'Nova carpeta',
-			'cmdmkfile'    : 'Nou fitxer',
+			'cmdmkfile'    : 'Nou fitxer de text',
 			'cmdopen'      : 'Obre',
 			'cmdpaste'     : 'Enganxa',
 			'cmdquicklook' : 'Previsualitza',

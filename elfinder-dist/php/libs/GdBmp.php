@@ -65,10 +65,8 @@
  * @return bool|resource
  */
 
-if (! function_exists('imagecreatefrombmp')) {
-	function imagecreatefrombmp($filename_or_stream_or_binary){
-		return elFinderLibGdBmp::load($filename_or_stream_or_binary);
-	}
+function imagecreatefrombmp($filename_or_stream_or_binary){
+	return elFinderLibGdBmp::load($filename_or_stream_or_binary);
 }
 
 class elFinderLibGdBmp{

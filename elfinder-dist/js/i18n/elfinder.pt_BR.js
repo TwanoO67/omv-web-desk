@@ -125,7 +125,7 @@
 			'cmdinfo'      : 'Propriedades',
 			'cmdmkdir'     : 'Nova pasta',
 			'cmdmkdirin'   : 'Em uma nova pasta', // from v2.1.7 added 19.2.2016
-			'cmdmkfile'    : 'Novo arquivo',
+			'cmdmkfile'    : 'Novo arquivo de texto',
 			'cmdopen'      : 'Abrir',
 			'cmdpaste'     : 'Colar',
 			'cmdquicklook' : 'Pré-vizualização',

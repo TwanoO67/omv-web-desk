@@ -115,7 +115,7 @@
 			'cmdhome'      : 'Home',
 			'cmdinfo'      : 'Πληροφορίες',
 			'cmdmkdir'     : 'Νέος φάκελος',
-			'cmdmkfile'    : 'Νέος αρχείο',
+			'cmdmkfile'    : 'Νέο αρχείο κειμένου',
 			'cmdopen'      : 'Άνοιγμα',
 			'cmdpaste'     : 'Επικόλληση',
 			'cmdquicklook' : 'Προεπισκόπηση',

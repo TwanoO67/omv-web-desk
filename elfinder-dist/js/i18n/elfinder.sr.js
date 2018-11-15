@@ -115,7 +115,7 @@
 			'cmdhome'      : 'Početna',
 			'cmdinfo'      : 'Proveri informacije',
 			'cmdmkdir'     : 'Novi folder',
-			'cmdmkfile'    : 'Nova datoteka',
+			'cmdmkfile'    : 'Nova tekstualna datoteka',
 			'cmdopen'      : 'Otvori',
 			'cmdpaste'     : 'Zalepi',
 			'cmdquicklook' : 'Pregledaj',
@@ -133,7 +133,7 @@
 			/*********************************** buttons ***********************************/ 
 			'btnClose'  : 'Zatvori',
 			'btnSave'   : 'Sačuvaj',
-			'btnRm'     : 'Obriši',
+			'btnRm'     : 'Preimenuj',
 			'btnApply'  : 'Potvrdi',
 			'btnCancel' : 'Prekini',
 			'btnNo'     : 'Ne',

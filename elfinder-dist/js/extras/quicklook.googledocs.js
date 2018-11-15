@@ -1,3 +1,5 @@
+"use strict";
+
 (function(root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define(['elfinder'], factory);
@@ -7,7 +9,6 @@
 		factory(root.elFinder);
 	}
 }(this, function(elFinder) {
-"use strict";
 try {
 	if (! elFinder.prototype.commands.quicklook.plugins) {
 		elFinder.prototype.commands.quicklook.plugins = [];
@@ -22,7 +23,6 @@ try {
 			
 			if (file.mime.indexOf('application/vnd.google-apps.') === 0) {
 				if (file.url == '1') {
-					preview.hide();
 					$('<div class="elfinder-quicklook-info-data"><button class="elfinder-info-button">'+fm.i18n('getLink')+'</button></div>').appendTo(ql.info.find('.elfinder-quicklook-info'))
 					.on('click', function() {
 						$(this).html('<span class="elfinder-info-spinner">');
@@ -31,7 +31,6 @@ try {
 							preventDefault : true
 						})
 						.always(function() {
-							preview.show();
 							$(this).html('');
 						})
 						.done(function(data) {
@@ -50,7 +49,7 @@ try {
 						node.off('load').remove();
 					});
 					
-					loading = $('<div class="elfinder-quicklook-info-data">'+fm.i18n('nowLoading')+'<span class="elfinder-info-spinner"></div>').appendTo(ql.info.find('.elfinder-quicklook-info'));
+					loading = $('<div class="elfinder-quicklook-info-data"> Now loading...<span class="elfinder-info-spinner"></div>').appendTo(ql.info.find('.elfinder-quicklook-info'));
 					
 					node = $('<iframe class="elfinder-quicklook-preview-iframe"/>')
 						.css('background-color', 'transparent')
@@ -60,7 +59,7 @@ try {
 							loading.remove();
 							$(this).css('background-color', '#fff').show();
 						})
-						.attr('src', fm.url(file.hash));
+						.attr('src', fm.url(file.hash).replace('/edit', '/embed'));
 				}
 			}
 			

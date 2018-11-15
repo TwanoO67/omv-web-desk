@@ -1,13 +1,12 @@
 <?php
 
-use League\Flysystem\Filesystem;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Cached\CachedAdapter;
-use League\Flysystem\Cached\Storage\Adapter as ACache;
-use Hypweb\Flysystem\GoogleDrive\GoogleDriveAdapter;
-use Hypweb\Flysystem\Cached\Extra\Hasdir;
-use Hypweb\Flysystem\Cached\Extra\DisableEnsureParentDirectories;
-use Hypweb\elFinderFlysystemDriverExt\Driver as ExtDriver;
+use \League\Flysystem\Filesystem;
+use \League\Flysystem\Adapter\Local;
+use \League\Flysystem\Cached\CachedAdapter;
+use \League\Flysystem\Cached\Storage\Adapter as ACache;
+use \Hypweb\Flysystem\GoogleDrive\GoogleDriveAdapter;
+use \Hypweb\Flysystem\Cached\Extra\Hasdir;
+use \Hypweb\Flysystem\Cached\Extra\DisableEnsureParentDirectories;
 
 elFinder::$netDrivers['googledrive'] = 'FlysystemGoogleDriveNetmount';
 
@@ -19,7 +18,7 @@ if (! class_exists('elFinderVolumeFlysystemGoogleDriveCache', false)) {
     }
 }
 
-class elFinderVolumeFlysystemGoogleDriveNetmount extends ExtDriver
+class elFinderVolumeFlysystemGoogleDriveNetmount extends \Hypweb\elFinderFlysystemDriverExt\Driver
 {
 
     public function __construct()
@@ -27,7 +26,6 @@ class elFinderVolumeFlysystemGoogleDriveNetmount extends ExtDriver
         parent::__construct();
         
         $opts = array(
-            'acceptedName' => '#^[^/\\?*:|"<>]*[^./\\?*:|"<>]$#',
             'rootCssClass' => 'elfinder-navbar-root-googledrive',
             'gdAlias'        => '%s@GDrive',
             'gdCacheDir'     => __DIR__ . '/.tmp',
@@ -53,8 +51,6 @@ class elFinderVolumeFlysystemGoogleDriveNetmount extends ExtDriver
             if ($this->options['icon'] === true) {
                 unset($this->options['icon']);
             }
-            // enable command archive
-            $this->options['useRemoteArchive'] = true;
         }
         return $res;
     }
