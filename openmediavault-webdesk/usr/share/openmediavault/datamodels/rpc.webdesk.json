@@ -17,7 +17,19 @@
 			    "minimum": 1,
 				"maximum": 65535,
 		        "required": true
-			}
+      },
+      "desktop_background": {
+        "type": "string",
+        "required": false
+      },
+      "login_background": {
+        "type": "string",
+        "required": false
+      },
+      "login_avatar": {
+        "type": "string",
+        "required": false
+      }
 		}
 	}
 },{

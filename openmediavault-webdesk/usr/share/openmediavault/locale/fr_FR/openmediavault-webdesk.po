@@ -18,110 +18,17 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-msgid "Add media share"
-msgstr "Partager un contenu"
-
-msgid "All Media"
-msgstr "Tous les médias"
-
-msgid "All media"
-msgstr "Tous les médias"
-
-msgid "Audio"
-msgstr "Audio"
-
-msgid "Component"
-msgstr "Composant"
-
-msgid "Content Type"
-msgstr "Type de contenu"
-
-msgid "Content Type(s)"
-msgstr "Type(s) de contenu"
-
 msgid "WebDesk"
 msgstr "WebDesk"
-
-msgid "Date & Time"
-msgstr "Date & Heure"
-
-msgid "Debug"
-msgstr ""
-
-msgid "Edit media share"
-msgstr "Modifier le partage multimédia"
 
 msgid "Enable"
 msgstr "Activer"
 
-msgid "Error"
-msgstr ""
-
-msgid "Event"
-msgstr "Événement"
-
-msgid "Fatal"
-msgstr ""
-
-msgid "General settings"
-msgstr "Paramètres généraux"
-
-msgid "Images"
-msgstr "Images"
-
-msgid "Info"
-msgstr ""
-
-msgid "Log Level"
-msgstr ""
-
-msgid "WebDesk"
-msgstr "WebDesk"
-
 msgid "WebDesk on OpenMediaVault"
 msgstr "WebDesk sur OpenMediaVault"
 
-msgid "Name"
-msgstr "Nom"
-
-msgid "Off"
-msgstr ""
-
-msgid "Port"
-msgstr "Port"
-
-msgid "Rescan"
-msgstr "Réanalyser"
+msgid "Links"
+msgstr "Liens"
 
 msgid "Settings"
 msgstr "Paramètres"
-
-msgid "Shared Folder"
-msgstr "Dossier partagé"
-
-msgid "Shared folder containing media files"
-msgstr "Dossier partagé contenant des fichiers multimédias"
-
-msgid "Shares"
-msgstr "Partages"
-
-msgid "Strict WebDesk"
-msgstr "Mode WebDesk strict"
-
-msgid "Strictly adhere to WebDesk standards."
-msgstr "Se conformer strictement aux normes WebDesk."
-
-msgid "The shared folder is already used by another share."
-msgstr "Ce dossier partagé est déjà utilisé par un autre partage."
-
-msgid "TiVo support"
-msgstr "Support de TiVo"
-
-msgid "Video"
-msgstr "Vidéo"
-
-msgid "Warn"
-msgstr ""
-
-msgid "n/a"
-msgstr "n/a"

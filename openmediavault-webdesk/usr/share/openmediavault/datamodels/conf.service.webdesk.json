@@ -20,7 +20,19 @@
 			"minimum": 1,
 			"maximum": 65535,
 			"default": 8200
+    },
+    "desktop_background": {
+			"type": "string",
+			"default": "/assets/img/bg.jpg"
 		},
+    "login_background": {
+      "type": "string",
+      "default": "http://i.imgur.com/W8IdvVk.jpg"
+    },
+    "login_avatar": {
+      "type": "string",
+      "default": "https://pbs.twimg.com/profile_images/1453596088/dessin_antoine_400x400.png"
+    },
 		"links": {
 			"type": "object",
 			"properties": {

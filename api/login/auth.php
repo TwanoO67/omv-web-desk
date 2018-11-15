@@ -72,21 +72,24 @@ function buildConfig($context,$session) {
   return 'WEBDESK_CONFIG = {
     "iconWidth": 100,
     "username": "'.$session->getUsername().'",
-    "navbar" : '.buildNavBar($context).',
+    "navbar" : '.buildNavBar($context,$session).',
     "dock" : '.buildDock($context,$session).'
   }';
 };
 
-function buildNavBar($context) {
+function buildNavBar($context,$session) {
   return '[
     {
-      "label": "User",
+      "label": "'.$session->getUsername().'",
       "submenu":[{
         "label": "Disconnect",
         "link":"/login/logout.php"
       }]
     },
-    {
+
+  ]';
+
+  /*{
       "label": "File",
       "submenu": [
         {"label": "New Window"},
@@ -110,8 +113,7 @@ function buildNavBar($context) {
         {"label": "Close"},
         {"label": "Close All"}
       ]
-    }
-  ]';
+    }*/
 };
 
 function buildDock($context,$session) {

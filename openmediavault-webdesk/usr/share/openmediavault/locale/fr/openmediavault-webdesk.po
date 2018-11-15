@@ -19,125 +19,17 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-msgid "Add media share"
-msgstr "Partager un contenu"
-
-msgid "All Media"
-msgstr "Tous les médias"
-
-msgid "All media"
-msgstr "Tous les médias"
-
-msgid "Audio"
-msgstr "Audio"
-
-msgid "Browse"
-msgstr "Parcourir"
-
-msgid "Component"
-msgstr "Composant"
-
-msgid "Content Type"
-msgstr "Type de contenu"
-
-msgid "Content Type(s)"
-msgstr "Type(s) de contenu"
-
 msgid "WebDesk"
 msgstr "WebDesk"
-
-msgid "Date & Time"
-msgstr "Date & Heure"
-
-msgid "Debug"
-msgstr "Debuggage"
-
-msgid "Edit media share"
-msgstr "Modifier le partage multimédia"
 
 msgid "Enable"
 msgstr "Activer"
 
-msgid "Error"
-msgstr "Erreur"
-
-msgid "Event"
-msgstr "Événement"
-
-msgid "Extra options"
-msgstr ""
-
-msgid "Fatal"
-msgstr "Fatal"
-
-msgid "General settings"
-msgstr "Paramètres généraux"
-
-msgid "Images"
-msgstr "Images"
-
-msgid "Info"
-msgstr "Info"
-
-msgid "Log Level"
-msgstr "Niveau de journalisation"
-
-msgid "WebDesk"
-msgstr ""
-
 msgid "WebDesk on OpenMediaVault"
 msgstr "WebDesk sur OpenMediaVault"
 
-msgid "Music"
-msgstr "Musique"
-
-msgid "Name"
-msgstr "Nom"
-
-msgid "Off"
-msgstr "Off"
-
-msgid "Pictures"
-msgstr "Photos"
-
-msgid "Port"
-msgstr "Port"
-
-msgid "Rescan"
-msgstr "Réanalyser"
-
-msgid "Root Container"
-msgstr "Répertoire principal"
+msgid "Links"
+msgstr "Liens"
 
 msgid "Settings"
 msgstr "Paramètres"
-
-msgid "Shared Folder"
-msgstr "Dossier partagé"
-
-msgid "Shared folder containing media files"
-msgstr "Dossier partagé contenant des fichiers multimédias"
-
-msgid "Shares"
-msgstr "Partages"
-
-msgid "Standard"
-msgstr "Standard"
-
-msgid "Strict WebDesk"
-msgstr "Mode WebDesk strict"
-
-msgid "Strictly adhere to WebDesk standards."
-msgstr "Se conformer strictement aux normes WebDesk."
-
-msgid "TiVo support"
-msgstr "Support de TiVo"
-
-msgid "Video"
-msgstr "Vidéo"
-
-msgid "Warn"
-msgstr "Warn"
-
-msgid "n/a"
-msgstr "n/a"

@@ -87,7 +87,7 @@ Ext.define("OMV.module.admin.service.webdesk.Settings", {
             },{
                 xtype      : "textfield",
                 name       : "name",
-                value      : _("MiniDLNA on OpenMediaVault"),
+                value      : _("WebDesk on OpenMediaVault"),
                 fieldLabel : _("Name")
             },{
                 xtype         : "numberfield",
@@ -99,7 +99,25 @@ Ext.define("OMV.module.admin.service.webdesk.Settings", {
                 allowDecimals : false,
                 allowBlank    : false,
                 value         : 8200
-            }/*,{
+            },{
+              xtype      : "textfield",
+              name       : "desktop_background",
+              value      : "/assets/img/bg.jpg",
+              fieldLabel : _("Desktop Background")
+            },{
+              xtype      : "textfield",
+              name       : "login_background",
+              value      : "http://i.imgur.com/W8IdvVk.jpg",
+              fieldLabel : _("Login Background")
+            },{
+              xtype      : "textfield",
+              name       : "login_avatar",
+              value      : "https://pbs.twimg.com/profile_images/1453596088/dessin_antoine_400x400.png",
+              fieldLabel : _("Login Avatar")
+            }
+
+
+            /*,{
                 xtype      : "checkbox",
                 name       : "strict",
                 fieldLabel : _("Strict DLNA"),

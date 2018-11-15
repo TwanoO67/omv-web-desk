@@ -1,3 +1,9 @@
+openmediavault-webdesk (0.2.0) UNRELEASED; urgency=low
+
+  * Add Links support, and background personnalization
+
+ -- Antoine Weber <perso@weberantoine.fr>  Mon, 15 Nov 2018 14:40:10 -0500
+
 openmediavault-webdesk (0.1.0) UNRELEASED; urgency=low
 
   * Initial Release

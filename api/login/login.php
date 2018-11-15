@@ -177,7 +177,7 @@
 	</div>
 <div class="wrap">
   Project OpenSource on <a href="https://github.com/TwanoO67/omv-web-desk">GitHub</a><br />
-  <span class="info">Welcome to OMV WebDesk</span>
+  <span class="info"><?php echo $CONF["name"]; ?></span>
  </div>
 
 
