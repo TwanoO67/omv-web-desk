@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DockComponent } from './_widgets/dock/dock.component';
 import { WindowService } from './_services/window.service';
 import { NavbarItem, NavbarSubItem} from './_models/navbar-item';
 import { DockItem } from './_models/dock-item';
@@ -20,16 +19,15 @@ export class AppComponent implements OnInit {
 
   constructor(private _wm: WindowService ) {
     // recupere la conf pour le user
-    if ( WEBDESK_CONFIG['username'] ) {
-      const user = WEBDESK_CONFIG['username'];
-      if ( WEBDESK_CONFIG['dock'][user] ) {
-        this.dock_conf = WEBDESK_CONFIG['dock'][user];
-      }
+    let user = 'default';
+    console.log(WEBDESK_CONFIG['username'],WEBDESK_CONFIG['dock']);
+    if ( WEBDESK_CONFIG['username'] && typeof WEBDESK_CONFIG['dock'][user] !== 'undefined') {
+      user = WEBDESK_CONFIG['username'];
     }
-    // sinon conf par defaut
-    if ( !this.dock_conf ) {
-      this.dock_conf = WEBDESK_CONFIG['dock']['default'];
-    }
+    console.log('user courant : ', user);
+
+    //Récupération de la conf
+    this.dock_conf = WEBDESK_CONFIG['dock'][user];
 
     this.dock_conf.forEach( (win) => {
       this.winlist.push(new DockItem(win));
@@ -42,12 +40,7 @@ export class AppComponent implements OnInit {
     this.iconWidth = WEBDESK_CONFIG['iconWidth'];
   }
 
- public ngOnInit() {
-
-
- }
-
-
+ public ngOnInit() {}
 
  private toggleExpose() {
    this._wm.toggleExpose();

@@ -53,7 +53,7 @@ export class DockComponent implements OnInit {
   private dockSelect(id) {
     // get win param by id
     const win = this.winlist.filter( (wind) => {
-      return (wind.id === id);
+      return (wind.uuid === id);
     })[0];
 
     // verify if not duplicated
@@ -62,7 +62,7 @@ export class DockComponent implements OnInit {
 
       // on laisse passé un timeout, pour avoir le temps de construire le dom
       setTimeout(( scope) => {
-        const cur_win = scope._wm.createWindowFromQuery('#' + win.id, {
+        const cur_win = scope._wm.createWindowFromQuery('#' + win.uuid, {
           title: win.title,
           width: 250,
           height: 280,
@@ -70,14 +70,14 @@ export class DockComponent implements OnInit {
           y: scope.y_pos,
           events: {
             closed: () => {
-              console.log('closed sur ' + win.id);
+              console.log('closed sur ' + win.uuid);
               win.ref = null;
               win.opened = false;
               win.selected = false;
               cur_win.destroy();
             },
             focus: () => {
-              console.log('focus sur ' + win.id);
+              console.log('focus sur ' + win.uuid);
               scope.winlist.forEach((autre) => {
                 autre.selected = false;
               });

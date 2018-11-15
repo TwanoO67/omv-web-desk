@@ -5,13 +5,13 @@
 <ng-container *ngFor="let item of winlist; let i = index;">
 
     <ng-container *ngIf="item.iframe">
-      <div [hidden]="!item.opened" [id]="item.id" class="intrinsic-container" (resize)="winresize()">
+      <div [hidden]="!item.opened" [id]="item.uuid" class="intrinsic-container" (resize)="winresize()">
         <iframe [src]="item.iframe | safe" allowfullscreen></iframe>
       </div>
     </ng-container>
 
     <ng-container *ngIf="!item.iframe">
-      <div [hidden]="!item.opened" [id]="item.id" class="mywin {{item.id}}">{{item.text}}</div>
+      <div [hidden]="!item.opened" [id]="item.uuid" class="mywin {{item.uuid}}">{{item.text}}</div>
     </ng-container>
 
 </ng-container>

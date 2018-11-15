@@ -54,7 +54,7 @@ if( isset( $_POST['username'] ) && isset($_POST['password'] ) ){
       }
 
       //construction de la config
-      $str = buildConfig($context);
+      $str = buildConfig($context,$session);
       file_put_contents('/etc/webdesk/webdesk_config.js',$str);
 
     }
@@ -68,11 +68,12 @@ else{
   Construction de la config
 */
 
-function buildConfig($context) {
+function buildConfig($context,$session) {
   return 'WEBDESK_CONFIG = {
     "iconWidth": 100,
+    "username": "'.$session->getUsername().'",
     "navbar" : '.buildNavBar($context).',
-    "dock" : '.buildDock($context).'
+    "dock" : '.buildDock($context,$session).'
   }';
 };
 
@@ -113,7 +114,7 @@ function buildNavBar($context) {
   ]';
 };
 
-function buildDock($context) {
+function buildDock($context,$session) {
   $links = \OMV\Rpc\Rpc::call("WebDesk", "getLinkList", [], $context , \OMV\Rpc\Rpc::MODE_REMOTE, TRUE);
 
   $prep = [];
@@ -130,7 +131,7 @@ function buildDock($context) {
   return json_encode([
     "default" => [
       [
-        "id" => "about",
+        "uuid" => "about",
         "image"=> "/assets/flatjoy-circle-deviantart/Apple.png",
         "title"=> "Présentation",
         "text"=> "Bienvenue, sur l\'interface de gestion de Bureau virtuel. N\'oubliez pas de changer les url d\'iframe et de configurer vos propres icones",
@@ -139,13 +140,13 @@ function buildDock($context) {
         "ref"=> null
       ],
       [
-        "id"=> "elfinder",
+        "uuid"=> "elfinder",
         "image"=> "/assets/flatjoy-circle-deviantart/Folder%20Files.png",
         "iframe"=> "/elfinder/elfinder.html",
         "title"=> "Finder"
       ]
       ],
-    $_POST['username'] => $prep
+      $session->getUsername() => $prep
     ], JSON_PRETTY_PRINT );
 
   /*return '{

@@ -10,12 +10,10 @@
 	$session = &\OMV\Session::getInstance();
 	$session->start();
 
-	if ($session->isAuthenticated() && !$session->isTimeout()) {
+	if ($session->isAuthenticated() && !$session->isTimeout() && file_exists("./webdesk_config.js")) {
     require("./index.html");
-    echo "<script> WEBDESK_CONFIG['username'] = '".$session->getUsername()."'; </script>";
 	}
 	else{
-
 		require("./login/login.php");
 	}
 	exit;

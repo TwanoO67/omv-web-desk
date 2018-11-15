@@ -25,10 +25,10 @@ script:
 # compilation du projet
   - npm run build
 # récuperation de elfinder
-  - curl -o elfinder.zip https://codeload.github.com/Studio-42/elFinder/zip/2.1.42
+  - curl -o elfinder.zip https://codeload.github.com/Studio-42/elFinder/zip/2.1.23
   - mkdir elfinder
   - unzip -d elfinder elfinder.zip
-  - mv elfinder/elFinder-2.1.42 elfinder/elfinder
+  - mv elfinder/elFinder-2.1.23 elfinder/elfinder
 # on construit une release
   - mkdir release
   - cp -r elfinder/elfinder release/

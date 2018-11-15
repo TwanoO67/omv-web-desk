@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port=4300",
-    "build": "ng build --prod && cp -r api/* dist/ && rm -rf  cp -r ./openmediavault-webdesk/etc/webdesk/* && cp -r ./elfinder-dist ./openmediavault-webdesk/etc/webdesk/elfinder && cp -r ./dist/* ./openmediavault-webdesk/etc/webdesk",
+    "build": "ng build --prod && cp -r api/* dist/ && rm -rf ./openmediavault-webdesk/etc/webdesk/* && cp -r ./elfinder-dist ./openmediavault-webdesk/etc/webdesk/elfinder  && cp -r ./dist/* ./openmediavault-webdesk/etc/webdesk",
     "compress" : "cd ./openmediavault-webdesk/etc/webdesk && tar czvf * dist-omv-web-desk.tar.gz",
     "test": "ng test",
     "lint": "ng lint",

@@ -1,7 +1,7 @@
 import { MixinObject } from './mixin';
 
 export class DockItem extends MixinObject {
-  public id = '';
+  public uuid = '';
   public image = '';
   public iframe = '';
   public title = '';
