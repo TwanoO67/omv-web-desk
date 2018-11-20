@@ -4,7 +4,7 @@ XB-Plugin-Section: multimedia
 Priority: optional
 Maintainer: Antoine Weber <perso@weberantoine.fr>
 Build-Depends: debhelper (>= 9.0.0 )
-Standards-Version: 3.9.6
+Standards-Version: 4.1.4
 
 Package: openmediavault-webdesk
 Architecture: all
@@ -12,4 +12,5 @@ Depends: nginx,
          openmediavault (>= 4.0.4),
          php-fpm,
          ${misc:Depends}
-Description: OMV Web Desk, is a project to add a public "front" part to an OpenMediaVault server. It will consist of a web app using OMV's config, to show some easy functionnality to your users. It will be based on user and folder sharing defined in the OMV administration UI.
+Description: add front part to an OpenMediaVault server.
+  The project consist of a web app using OMV's config, to show some easy functionnality to your users. It is based on user and folder sharing defined in the OMV administration UI.

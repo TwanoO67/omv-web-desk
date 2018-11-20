@@ -1,22 +1,22 @@
 [{
-	"type": "rpc",
-	"id": "rpc.webdesk.setsettings",
-	"params": {
-		"type": "object",
-		"properties": {
-		    "enable": {
-		        "type": "boolean",
-		        "required": true
-		    },
-			"name": {
-			    "type": "string",
-		        "required": true
-			},
-			"port": {
-			    "type": "integer",
-			    "minimum": 1,
-				"maximum": 65535,
-		        "required": true
+  "type": "rpc",
+  "id": "rpc.webdesk.setsettings",
+  "params": {
+    "type": "object",
+    "properties": {
+      "enable": {
+        "type": "boolean",
+        "required": true
+      },
+      "name": {
+        "type": "string",
+        "required": true
+      },
+      "port": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 65535,
+        "required": true
       },
       "desktop_background": {
         "type": "string",
@@ -30,14 +30,14 @@
         "type": "string",
         "required": false
       }
-		}
-	}
+    }
+  }
 },{
-	"type": "rpc",
-	"id": "rpc.webdesk.setlink",
-	"params": {
-		"type": "object",
-		"properties": {
+  "type": "rpc",
+  "id": "rpc.webdesk.setlink",
+  "params": {
+    "type": "object",
+    "properties": {
       "uuid": {
         "type": "string",
         "required": true
@@ -58,6 +58,6 @@
         "type": "string",
         "required": false
       }
-		}
-	}
+    }
+  }
 }]

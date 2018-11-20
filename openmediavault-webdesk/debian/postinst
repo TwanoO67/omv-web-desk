@@ -65,21 +65,13 @@ case "$1" in
           usermod -a -G openmediavault-webgui $USERNAME
         fi
 
-        # Initialize and migrate configuration database.
-        echo "Updating configuration database ..."
-        omv-confdbadm create "conf.service.webdesk"
-        if [ -n "$2" ]; then
-            omv-confdbadm migrate "conf.service.webdesk" "${2}"
-        fi
-
         # make config file
         #omv-mkconf webdesk
 
-
         # Activate package triggers. These triggers are only set during the
         # package installation.
-        dpkg-trigger update-fixperms
-        dpkg-trigger update-locale
+        dpkg-trigger --by-package openmediavault-webdesk update-fixperms
+        dpkg-trigger --by-package openmediavault-webdesk update-locale
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

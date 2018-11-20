@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     // recupere la conf pour le user
     let user = 'default';
     console.log(WEBDESK_CONFIG['username'],WEBDESK_CONFIG['dock']);
-    if ( WEBDESK_CONFIG['username'] && typeof WEBDESK_CONFIG['dock'][user] !== 'undefined') {
+    if ( WEBDESK_CONFIG['username'] && typeof WEBDESK_CONFIG['dock'][WEBDESK_CONFIG['username']] !== 'undefined' && WEBDESK_CONFIG['dock'][WEBDESK_CONFIG['username']].length > 0) {
       user = WEBDESK_CONFIG['username'];
     }
     console.log('user courant : ', user);

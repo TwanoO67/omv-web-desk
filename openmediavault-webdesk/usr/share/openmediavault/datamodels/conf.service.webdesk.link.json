@@ -1,13 +1,13 @@
 {
-	"type": "config",
-	"id": "conf.service.webdesk.link",
-	"title": "WebDesk Links",
-	"queryinfo": {
-		"xpath": "//services/webdesk/links/link",
-		"iterable": true,
-		"idproperty": "uuid"
-	},
-	"properties": {
+  "type": "config",
+  "id": "conf.service.webdesk.link",
+  "title": "WebDesk Links",
+  "queryinfo": {
+    "xpath": "//services/webdesk/links/link",
+    "iterable": true,
+    "idproperty": "uuid"
+  },
+  "properties": {
     "uuid": {
       "type": "string"
     },
