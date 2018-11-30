@@ -12,5 +12,5 @@ Depends: nginx,
          openmediavault (>= 4.0.4),
          php-fpm,
          ${misc:Depends}
-Description: add front part to an OpenMediaVault server.
-  The project consist of a web app using OMV's config, to show some easy functionnality to your users. It is based on user and folder sharing defined in the OMV administration UI.
+Description: OpenMediaVault Plugins - WebDesk server
+  WebDesk - Easy access to your Apps/Plugins with a virtual desktop as a webapp. Configuration is based on yours users and folders sharings defined in the OMV administration UI.
