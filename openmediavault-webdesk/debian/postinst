@@ -29,7 +29,8 @@ case "$1" in
     configure)
         SERVICE_XPATH_NAME="webdesk"
         SERVICE_XPATH="/config/services/${SERVICE_XPATH_NAME}"
-        INSTALL_LOG="/etc/webdesk/webdesk_setup_log"
+        DIR_PATH="/etc/webdesk"
+        INSTALL_LOG="${DIR_PATH}/webdesk_setup_log"
         USERNAME="webdesk"
         GROUPNAME="webdesk"
 
@@ -64,6 +65,9 @@ case "$1" in
           usermod -a -G openmediavault-engined $USERNAME
           usermod -a -G openmediavault-webgui $USERNAME
         fi
+
+        #send right on file to webdesk user and group
+        chown -R $USERNAME:$GROUPNAME ${DIR_PATH}
 
         # make config file
         #omv-mkconf webdesk
