@@ -222,13 +222,18 @@
 				document.location = "/";
 			}
 			else{
-				input_user.classList.remove("hide");
-				input_pass.classList.remove("hide");
-				loader.classList.remove("visible");
-				shake();
+				handleError()
 			}
-		});
-	}
+    },
+    handleError);
+  }
+
+  function handleError(){
+    input_user.classList.remove("hide");
+    input_pass.classList.remove("hide");
+    loader.classList.remove("visible");
+    shake();
+  }
 
 	function shake(){
 		login_box.classList.add("init-shake");
@@ -237,7 +242,7 @@
 		}, 1000);
 	}
 
-	function post(url,obj,callback){
+	function post(url,obj,callback,error){
 		var http = new XMLHttpRequest();
 		var str = "";
 		for (var key in obj) {
@@ -254,7 +259,10 @@
 		http.onreadystatechange = function() {//Call a function when the state changes.
 		    if(http.readyState == 4 && http.status == 200) {
 		        callback(http.responseText);
-		    }
+			}
+			else{
+				error(http);
+			}
 		}
 		http.send(str);
 	}

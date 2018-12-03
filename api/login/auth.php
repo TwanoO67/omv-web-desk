@@ -34,7 +34,6 @@ if( isset( $_POST['username'] ) && isset($_POST['password'] ) ){
 	if ( $session->isAuthenticated() && $session->isTimeout() ) {
 		session_destroy();
 		session_start();
-		//$session = &\OMV\Session::getInstance();
 	}
 
 	$params = array(
@@ -55,7 +54,9 @@ if( isset( $_POST['username'] ) && isset($_POST['password'] ) ){
 
       //construction de la config
       $str = buildConfig($context,$session);
-      file_put_contents('/etc/webdesk/webdesk_config.js',$str);
+      $js = 'WEBDESK_CONFIG = '.json_encode($str, JSON_PRETTY_PRINT );
+
+      file_put_contents('/etc/webdesk/webdesk_config.js',$js);
 
     }
 		echo json_encode($object);
@@ -69,25 +70,27 @@ else{
 */
 
 function buildConfig($context,$session) {
-  return 'WEBDESK_CONFIG = {
-    "iconWidth": 100,
-    "username": "'.$session->getUsername().'",
-    "navbar" : '.buildNavBar($context,$session).',
-    "dock" : '.buildDock($context,$session).'
-  }';
+  $CONF = require('./config.php');
+  $CONF["iconWidth"] = 100;
+  $CONF["username"] = $session->getUsername();
+  $CONF["navbar"] = buildNavBar($context,$session);
+  $CONF["dock"] = buildDock($context,$session);
+
+  return $CONF;
 };
 
 function buildNavBar($context,$session) {
-  return '[
-    {
-      "label": "'.$session->getUsername().'",
-      "submenu":[{
-        "label": "Disconnect",
-        "link":"/login/logout.php"
-      }]
-    },
-
-  ]';
+  return [
+    [
+      "label" => $session->getUsername(),
+      "submenu" => [
+        [
+          "label" => "Disconnect",
+          "link" => "/login/logout.php"
+        ]
+      ]
+    ]
+  ];
 
   /*{
       "label": "File",
@@ -130,7 +133,7 @@ function buildDock($context,$session) {
     $prep[] = $link;
   }
 
-  return json_encode([
+  return [
     "default" => [
       [
         "uuid" => "about",
@@ -149,6 +152,5 @@ function buildDock($context,$session) {
       ]
     ],
     $session->getUsername() => $prep
-  ], JSON_PRETTY_PRINT );
+  ];
 };
-

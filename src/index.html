@@ -18,4 +18,8 @@
 <body>
   <app-root>Loading...</app-root>
 </body>
+<script>
+  if(typeof WEBDESK_CONFIG !== "undefined" && typeof WEBDESK_CONFIG["desktop_background"] !== "undefined"){
+    document.body.style.background = "url("+WEBDESK_CONFIG["desktop_background"]+") no-repeat center center fixed";
+  }</script>
 </html>
