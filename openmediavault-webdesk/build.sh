@@ -4,4 +4,5 @@
 rm ../openmediavault-webdesk_*
 rm ./etc/webdesk/webdesk_config.js
 rm ./etc/webdesk/webdesk_setup_log
-debuild -us -uc
+#debuild -us -uc
+fakeroot debian/rules clean binary
