@@ -1,23 +1,9 @@
-openmediavault-webdesk (0.4.0) UNRELEASED; urgency=low
+openmediavault-webdesk (0.4.0) UNRELEASED; urgency=medium
 
   * Allow background change
+  * [From 0.3] Fix folder permission, to write configuration file
+  * [From 0.2] Add Links support, and login background personnalization
+  * [From 0.1] Initial release.
 
- -- Antoine Weber <perso@weberantoine.fr>  TODO
 
-openmediavault-webdesk (0.3.0) UNRELEASED; urgency=low
-
-  * Fix folder permission, to write configuration file
-
- -- Antoine Weber <perso@weberantoine.fr>  Fri, 30 Nov 2018 12:40:10 -0500
-
-openmediavault-webdesk (0.2.0) UNRELEASED; urgency=low
-
-  * Add Links support, and background personnalization
-
- -- Antoine Weber <perso@weberantoine.fr>  Thu, 15 Nov 2018 14:40:10 -0500
-
-openmediavault-webdesk (0.1.0) UNRELEASED; urgency=low
-
-  * Initial Release
-
- -- Antoine Weber <perso@weberantoine.fr>  Mon, 5 Nov 2018 19:40:10 -0500
+ -- WEBER Antoine <weber@weber-XPS-13-9370>  Tue, 04 Dec 2018 15:14:14 +0100
