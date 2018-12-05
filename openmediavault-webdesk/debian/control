@@ -13,4 +13,4 @@ Depends: nginx,
          php-fpm,
          ${misc:Depends}
 Description: OpenMediaVault Plugins - WebDesk server
-    WebDesk - Easy access to your Apps/Plugins with a virtual desktop as a webapp. Configuration is based on yours users and folders sharings defined in the OMV administration UI.
+ WebDesk - Easy access to your Apps/Plugins with a virtual desktop as a webapp. Configuration is based on yours users and folders sharings defined in the OMV administration UI.
